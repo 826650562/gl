@@ -112,4 +112,19 @@ public class ModeSeviceImpl implements ModeSevice {
 		List res=_jd.queryForList("select * from mode_part");
 		return res;
 	}
+	//gsm 插入数据库case表
+	public void subCase(String caseName, String caseType, String caseBrief, String caseTips) {
+		// TODO Auto-generated method stub
+		//
+		String sql = "insert into `case` (name, type, tips, brief) values" + 
+				"('" + caseName + "','"+caseType+"','"+caseTips+"','"+caseBrief+"'); ";
+		_jd.execute(sql);
+		
+	}
+
+	public List loadModel() {
+		// TODO Auto-generated method stub
+		List res=_jd.queryForList("select * from mode");
+		return res;
+	}
 }

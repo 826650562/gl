@@ -37,4 +37,8 @@ public interface ModeSevice {
 
 	List getAllModeparts();
 
+	void subCase(String caseName, String caseType, String caseBrief, String caseTips);
+
+	List loadModel();
+
 }

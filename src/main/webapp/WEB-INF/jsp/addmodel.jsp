@@ -94,7 +94,7 @@
 						<li><a href="addmodel.html" class="active"> <i
 								class="fa fa-cube"></i> <span>添加3D模型</span>
 						</a></li>
-						<li><a href="index.html" class=""> <i
+						<li><a href="case.html" class=""> <i
 								class="fa fa-briefcase"></i> <span>添加案例</span>
 						</a></li>
 						<li><a href="index.html" class=""> <i class="fa fa-file"></i>
@@ -372,6 +372,22 @@
 			});
 		});
 	</script>
+   
+   <script>
+    $(function(){
+       var tag="${is_show_Create}";
+       if(tag && tag=="_1001"){
+          //隐藏
+          
+          	
+            $('.add').hide();
+            $('.checkout').show();
+           
+       }
+       
+    });
+   
+   </script>
 
 
 	<script>

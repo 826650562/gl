@@ -26,8 +26,8 @@ $(function() {
 			deleteModeType(delet_type);
 		});
 	}
-	
-	function deleteModeType(type){
+
+	function deleteModeType(type) {
 		$.ajax({
 			type : "POST",
 			url : "deleteModeType",
@@ -38,10 +38,10 @@ $(function() {
 			cache : false,
 			contentType : "application/x-www-form-urlencoded",
 			success : function(data) {
-			 if(data=='1000'){
-				 $('#del-confirm-model').modal('hide');
-				 $("#_select_guoluType").find("option:selected").remove();
-			  }
+				if (data == '1000') {
+					$('#del-confirm-model').modal('hide');
+					$("#_select_guoluType").find("option:selected").remove();
+				}
 			},
 			error : function(data) {
 				console.log("error:" + data.responseText);
@@ -73,5 +73,97 @@ $(function() {
 		});
 	}
 
+	//加载首页数据
+	function loadMode() {
+		$.ajax({
+			type : "POST",
+			url : "loadModel",
+			async : false,
+			cache : false,
+			contentType : "application/x-www-form-urlencoded",
+			success : function(data) {
+				var res = JSON.parse(data);
+				var count = res.length;
+				var fenLen=3
+				var htmls = [];
+				res.map(function(item,index) {
+					htmls.push(getHtmlModel(item,index));
+				});
+				if (htmls.length <= 0) {
+					$("#listOfGuolu").html("暂无数据！");
+				} else {
+					layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
+						var layedit = layui.layedit;
+						layedit.build('editor'); //建立编辑器
+						var laypage = layui.laypage;
+						laypage.render({
+							elem : 'page1',
+							count : count,
+							limit : fenLen,
+							layout : [ 'count', 'prev', 'page', 'next', 'skip' ],
+							jump : function(obj, first) {
+								//首次不执行
+								if (!first) {
+									$("#listOfGuolu").html(gethtml(htmls, obj.curr, fenLen));
+								}else{
+									$("#listOfGuolu").html(gethtml(htmls, 1, fenLen));	
+								}
+								addEvenlister();
+								
+							}
+						});
 
+					});
+				}
+			
+			},
+			error : function(data) {
+				console.log("error:" + data.responseText);
+			}
+		});
+		
+		function addEvenlister(){
+			$(".mode_watch").unbind().click(function(){
+				//查看
+				
+			});
+			$(".mode_update").unbind().click(function(){
+				//修改
+				var id=$(this).parents("tr").attr("mode_id");
+				window.location.href="addmodel?tag_id="+id;
+				
+			});
+			$(".mode_delete").unbind().click(function(){
+				//删除
+				loadMode();
+			});
+		}
+
+		function getHtmlModel(data,index) {
+			return '<tr mode_id='+data.id+'>' +
+				'<th scope="row">'+index+'</th>' +
+				'<td>'+data.name+'</td>' +
+				'<td><img src="/seckill/uploadFiles/'+data.fenmian+'" alt="" style="width: 40px;height:40px;"></td>' +
+				'<td>'+data.type+'</td>' +
+				'<td>&nbsp;</td>' +
+				'<td><button type="button" class="btn btn-light mode_watch " >查看</button>' +
+				'<button type="button" class="btn btn-primary mode_update"   >修改</button>' +
+				'<button type="button" class="btn btn-danger mode_delete"  >删除</button></td></tr>'
+		}
+		
+		function gethtml(html, cur, len) {
+			var h = "";
+			var be = (cur - 1) * len;
+			var end = cur * len;
+			for (var i = 0; i < html.length; i++) {
+				if (i >= be && i < end) {
+					h += html[i];
+				}
+			}
+			return h;
+		}
+
+	}
+
+	loadMode();
 })

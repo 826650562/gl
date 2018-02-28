@@ -73,7 +73,7 @@
 						<li><a href="addmodel.html" class=""> <i
 								class="fa fa-cube"></i> <span>添加3D模型</span>
 						</a></li>
-						<li><a href="index.html" class=""> <i
+						<li><a href="${basePath }/home/case" class=""> <i
 								class="fa fa-briefcase"></i> <span>添加案例</span>
 						</a></li>
 						<li><a href="index.html" class=""> <i class="fa fa-file"></i>
@@ -141,49 +141,8 @@
 												<th scope="col">操作</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">1</th>
-												<td>MDS锅炉</td>
-												<td><img
-													src="${basePath}/static/assets/img/fengmian.png" alt=""
-													style="width: 40px;height:40px;"></td>
-												<td>锅壳锅炉</td>
-												<td>&nbsp;</td>
-												<td>
-													<button type="button" class="btn btn-light watch">查看</button>
-													<button type="button" class="btn btn-primary">修改</button>
-													<button type="button" class="btn btn-danger">删除</button>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">2</th>
-												<td>MDS锅炉</td>
-												<td><img
-													src="${basePath}/static/assets/img/fengmian.png" alt=""
-													style="width: 40px;height:40px;"></td>
-												<td>锅壳锅炉</td>
-												<td>&nbsp;</td>
-												<td>
-													<button type="button" class="btn btn-light watch">查看</button>
-													<button type="button" class="btn btn-primary">修改</button>
-													<button type="button" class="btn btn-danger">删除</button>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">3</th>
-												<td>MDS锅炉</td>
-												<td><img
-													src="${basePath}/static/assets/img/fengmian.png" alt=""
-													style="width: 40px;height:40px;"></td>
-												<td>锅壳锅炉</td>
-												<td>&nbsp;</td>
-												<td>
-													<button type="button" class="btn btn-light watch">查看</button>
-													<button type="button" class="btn btn-primary">修改</button>
-													<button type="button" class="btn btn-danger">删除</button>
-												</td>
-											</tr>
+										<tbody id="listOfGuolu">
+											 
 										</tbody>
 									</table>
 									<div id="page1"></div>
@@ -534,27 +493,7 @@
 				$(this).siblings('li').removeClass('active');
 			});
 		});
-		layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
-			var layedit = layui.layedit;
-			layedit.build('editor'); //建立编辑器
-			var laypage = layui.laypage;
-			laypage.render({
-				elem : 'page1',
-				count : 200,
-				layout : [ 'count', 'prev', 'page', 'next', 'limit', 'skip' ],
-				jump : function(obj) {
-					console.log(obj)
-				}
-			});
-			laypage.render({
-				elem : 'page2',
-				count : 200,
-				layout : [ 'count', 'prev', 'page', 'next', 'limit', 'skip' ],
-				jump : function(obj) {
-					console.log(obj)
-				}
-			});
-		});
+		
 		$('.watch').click(function() {
 			$('.pot-index').hide();
 			$('.checkout').show();
