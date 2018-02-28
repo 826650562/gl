@@ -53,15 +53,27 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/addmodel", method = RequestMethod.GET)
-	private String addmodel(Model model) {
+	private String addmodel(Model model, HttpServletRequest request) {
+		String tag_id = (String) request.getParameter("tag_id");
 		String[] types = modeSevice.getTypes();
 		model.addAttribute("_types", types);
-		return "addmodel";
+		if(!StringUtils.isNullOrEmpty(tag_id)){
+			model.addAttribute("is_show_Create", "_1001");
+		} 
+		return "addmodel";	
 	}
 
 	@RequestMapping(value = "/loadMode")
 	private String loadMode(Model model) {
 		return "mode";
+	}
+	
+	//gsm 跳转编辑案例界面
+	@RequestMapping(value = "/case", method = RequestMethod.GET)
+	private String addcase(Model model) {
+		String[] types = modeSevice.getTypes();
+		model.addAttribute("_types", types);
+		return "case";
 	}
 
 	// 这里需要修改
@@ -280,9 +292,40 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
+ 
+	
+	//gsm 上传案例数据到数据库
+	@RequestMapping(value = "/subCase", method = RequestMethod.POST)
+	private void subCase(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		try {
+			String caseName = (String) request.getParameter("caseName");
+			String caseType = (String) request.getParameter("caseType");
+			String caseBrief = (String) request.getParameter("caseBrief");
+			String caseTips = (String) request.getParameter("caseTips");
+			
+			modeSevice.subCase(caseName,caseType,caseBrief, caseTips);
+			//JSONArray json = JSONArray.fromObject(res);
+			response.getWriter().write("1000");
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
+	
+	//gsm 加载首页数据
+	@RequestMapping(value = "/loadModel", method = RequestMethod.POST)
+	private void loadModel(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		try {
+			List res = modeSevice.loadModel();
+			JSONArray json = JSONArray.fromObject(res);
+			response.getWriter().write(json.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
 	
 	
 	
-	
-
 }

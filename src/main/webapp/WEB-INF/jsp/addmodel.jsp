@@ -94,7 +94,7 @@
 						<li><a href="addmodel.html" class="active"> <i
 								class="fa fa-cube"></i> <span>添加3D模型</span>
 						</a></li>
-						<li><a href="index.html" class=""> <i
+						<li><a href="case.html" class=""> <i
 								class="fa fa-briefcase"></i> <span>添加案例</span>
 						</a></li>
 						<li><a href="index.html" class=""> <i class="fa fa-file"></i>
@@ -311,7 +311,8 @@
 									<div class="upload-img">
 										<form id="upload_fengmian" action="#"
 											enctype="multipart/form-data">
-											<input id="uploadfengmian" type="file" name="file" style="width: 155px; height: 200px; margin-left: 110px;">
+											<input id="uploadfengmian" type="file" name="file"
+												style="width: 155px; height: 200px; margin-left: 110px;">
 										</form>
 									</div>
 								</div>
@@ -378,7 +379,24 @@
 					}
 				});
 			});
+	 
+   
+   	</script>
+		<script>
+			$(function() {
+				var tag = "${is_show_Create}";
+				if (tag && tag == "_1001") {
+					//隐藏
+		
+		
+					$('.add').hide();
+					$('.checkout').show();
+		
+				}
+		
+			});
 		</script>
+
 
 
 		<script>
@@ -440,16 +458,16 @@
 						data : {
 							_glmc : name,
 							_glfl : delet_type,
-							_textarea:textarea,
-							mode_id:mode_id
+							_textarea : textarea,
+							mode_id : mode_id
 						},
 						async : false,
 						cache : false,
 						contentType : "application/x-www-form-urlencoded",
 						success : function(data) {
 							if (data == "1000") {
-								 alert("保存成功");
-								 window.location.href="index";
+								alert("保存成功");
+								window.location.href = "index";
 							}
 						},
 						error : function(data) {

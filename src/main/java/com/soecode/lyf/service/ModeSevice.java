@@ -44,4 +44,8 @@ public interface ModeSevice {
 
 	void allsave_mode(String id, String _glmc, String _glfl, String _textarea);
 
+	void subCase(String caseName, String caseType, String caseBrief, String caseTips);
+
+	List loadModel();
+
 }
