@@ -1,0 +1,48 @@
+@media(min-width: 1920px) {
+    .container {
+        max-width: 1860px;
+    }
+}
+
+@media(max-width: 1910px) {
+    .container {
+        max-width: 1660px;
+    }
+}
+body{
+    background-color: #9e9e9e;
+}
+.container-fluid{
+    background-color: #fff;
+    padding: 15px;
+}
+.model{
+    margin-top: 15px;
+    padding: 24px;
+    background-color: #fff;
+}
+#pot-name{
+    width: 160px;
+    display: inline;
+    margin-right: 10px;
+}
+#pot-type{
+    margin-right: 10px;
+}
+#change-pot{
+    margin-right: 10px;
+    padding: 0px 27px;
+}
+#back{
+    padding: 0px 27px;
+    border-color: #9E9E9E
+}
+.upload-img{
+    width: 150px;
+    height: 200px;
+    margin-left: 20px;
+    border: 1px dashed #9e9e9e;
+    border-radius: 5px;
+    background: url('../img/plus.png') no-repeat 44px 64px;
+    cursor: pointer;
+}

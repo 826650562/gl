@@ -1,0 +1,33 @@
+.main{
+    display: grid;
+    grid-template-rows: 60px auto auto;
+    grid-gap: 16px;
+}
+.type{
+    grid-row: 1/2;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.model{
+    grid-row: 2/3;
+}
+.case{
+    grid-row: 3/4;
+}
+.imp-btn{
+    margin: 10px 36px;
+}
+.table-intro{
+    border-bottom: 1px solid #9E9E9E;
+    padding: 0 0 16px 0px;
+}
+.page-link{
+    border-radius: 5px;
+}
+.page-item{
+    margin-right: 10px;
+}
+.page{
+    float: right;
+}
