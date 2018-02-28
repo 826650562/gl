@@ -1,0 +1,58 @@
+/* -----------------------------------
+Template:  Theme Name
+
+NOTE: This is Header style file. All Header related style included in this file.
+
+--------------------------------------*/
+.logo{padding-top: 20px;}
+.main-menu{position: relative;}
+.main-menu ul li {display: inline-block;position: relative;}
+.main-menu ul li a{color: #313131;display: block;font-size: 15px;line-height: 30px;margin-right: 1px;padding: 20px 18px;position: relative;
+text-decoration: none;text-transform: uppercase;transition: all 300ms ease-in 0s;font-family: 'microsoft yahei', Arial, Helvetica, sans-serif;color: #313131;}
+.main-menu ul li:hover > a,.main-menu ul li ul.submenu li a:hover,.main-menu ul li .mega-menu ul li a:hover{color:#ffae00}
+/* mega-menu */
+.main-menu ul li .mega-menu {background: #16171f none repeat scroll 0 0;opacity: 0;padding: 25px 30px;position: absolute;
+right: -200px;text-align: left;top: 150%;transition: all 0.3s ease 0s;visibility: hidden;width: 700px;z-index: 999;}
+.main-menu ul li:hover .mega-menu{top:100%;opacity: 1;visibility: visible;}
+.main-menu ul li .mega-menu ul {float: left;padding-right: 30px;width: 33.33%;}
+.main-menu ul li .mega-menu ul:last-child{padding-right:0;}
+.main-menu ul li .mega-menu ul li {display: block;}
+.main-menu ul li .mega-menu ul li a {color: #f5f5f5;display: block;font-weight: 400;padding: 3px 0;text-transform: uppercase;}
+.main-menu ul li .mega-menu ul li.mega-title a {border-bottom: 1px solid #ddd;font-weight: 700;margin-bottom: 15px;}
+.main-menu ul li .mega-2-col{width:480px;}
+.main-menu ul li .mega-2-col ul{width:50%}
+.button-search {background: rgba(0, 0, 0, 0) none repeat scroll 0 0;border: medium none;font-size: 0;padding: 0;position: absolute;
+right: 12px;top: 9px;z-index: 9;}
+.button-search::before {color: #000;content: "";display: block;font-family: "FontAwesome";font-size: 14px;text-align: center;width: 100%;}
+form#searchbox input {background: #fff none repeat scroll 0 0;border: 1px solid #ebebeb;color: #898989;display: inline;height: 40px;
+padding: 10px;position: relative;top: 100%;width: 300px;z-index: 1;}
+.toogle-content {display: none;position: absolute;right: 0;z-index: 9;}
+.setting-menu{display: inline-block;margin: 45px 0 0 30px;position: relative;}
+.toogle-content {background: white none repeat scroll 0 0;border: 1px solid #e6e6e6;box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);display: none;
+padding: 8px;position: absolute;right: 0;text-align: left;top: 70px;width: 120px; text-align:center; z-index: 999;}
+div.current {cursor: pointer;line-height: 40px;padding: 0 30px;text-shadow: none;}
+.content-nav li {color: #797979;font-size: 12px;line-height: 40px;}
+.content-nav li a {color: #797979;display: block;font-family: raleway;padding: 0 15px;}
+.shopping-cart {padding-bottom: 20px;position: relative;}
+.shopping-cart > ul {background: #199adb none repeat scroll 0 0;opacity: 0;padding: 20px;position: absolute;
+right: 0;top: 140%;transition: all 0.3s ease 0s;visibility: hidden;z-index: 9999;}
+.shopping-cart:hover ul{visibility:visible;opacity:1;top:100%}
+.shopping-cart ul li {overflow: hidden;}
+/* header-2 */
+.header-pad {padding: 0 115px;border-bottom:1px solid #e6e6e6;}
+header.header-2 {padding: 0;}
+.menu-style-2 ul li:last-child a{padding-right:0;}
+/* scroll-header */
+.header-area.scroll-header {animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0 ;left: 0;margin: 0 auto;padding: 0 15px;position: fixed;right: 0;top: 0;z-index: 999;}
+.header-black.header-area.scroll-header{background:#232222 }
+.header-area.scroll-header .logo {padding-top: 20px;}
+.header-area.scroll-header .search-block-top {margin-top: 0;}
+.header-area.scroll-header .setting-menu {margin: 0 0 0 30px;}
+.header-area.scroll-header .main-menu {margin: 0 10px 0 0;}
+/* intelligent-header */
+.intelligent-header {position: fixed;width: 100%;z-index: 999;}
+.headroom {will-change: transform;transition: transform 200ms linear;}
+.headroom--pinned {transform: translateY(0%);}
+.headroom--unpinned {transform: translateY(-100%);}
+.yhdl{height:40px; line-height:40px !important;  font-size:14px !important;  display:block !important; padding:0px !important;}
+.currencies-block-top{width:100%;}

@@ -98,6 +98,7 @@ $(function() {
 					loader.load(path[0], function(object) {
 						object.scale.set(0.1, 0.1, 0.1);
 						object.position.y = 0;
+						$(".main",window.parent.document).attr("mode_id",path[2]);
 						getParts(object, scene,path[2]);
 						scene.add(object);
 					}, onProgress, onError);
@@ -217,7 +218,6 @@ $(function() {
 					}
 				});
 			})
-			
 			$(parts_).html(gethtml(html, 1, fenLen));
 			$(fenye).fadeIn(100);
 			//注册监控事件
@@ -281,7 +281,7 @@ $(function() {
 						contentType : "application/x-www-form-urlencoded",
 						success : function(data) {
 							 if(data=="1000"){
-								 window.parent.getListOfParts();
+								 window.parent.getListOfParts(id_);
 								 $('#bjModal',window.parent.document).modal('hide');
 							 }
 						},
@@ -307,6 +307,8 @@ $(function() {
 				return modeParts
 			}
 		}
+		
+		
 		function gethtml(html, cur, len) {
 			var h = "";
 			var be = (cur - 1) * len;

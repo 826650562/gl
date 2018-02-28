@@ -125,8 +125,9 @@ public class HomeController {
 
 	@RequestMapping(value = "/getAllModeparts", method = RequestMethod.POST)
 	private void getAllModeparts(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		String id = (String) request.getParameter("_id");
 		try {
-			List res = modeSevice.getAllModeparts();
+			List res = modeSevice.getAllModeparts(id);
 			JSONArray json = JSONArray.fromObject(res);
 			response.getWriter().write(json.toString());
 		} catch (Exception e) {
@@ -134,6 +135,47 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
+	
+	@RequestMapping(value = "/getInfoOfPart", method = RequestMethod.POST)
+	private void getInfoOfPart(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		String id = (String) request.getParameter("_id");
+		try {
+			List res = modeSevice.getInfoOfPart(id);
+			JSONArray json = JSONArray.fromObject(res);
+			response.getWriter().write(json.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
+	
+	@RequestMapping(value = "/update_part", method = RequestMethod.POST)
+	private void update_part(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		String id = (String) request.getParameter("_id");
+		String name = (String) request.getParameter("name");
+		String textArea = (String) request.getParameter("textArea");
+		try {
+			modeSevice.update_part(id,name,textArea);
+			response.getWriter().write("1000");
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
+	@RequestMapping(value = "/delete_part", method = RequestMethod.POST)
+	private void delete_part(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		String id = (String) request.getParameter("_id");
+		try {
+			modeSevice.delete_part(id);
+			response.getWriter().write("1000");
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
 
 	@RequestMapping(value = "/saveModeInfo", method = RequestMethod.POST)
 	public void upload(HttpSession session, HttpServletResponse response, HttpServletRequest request)
@@ -195,5 +237,52 @@ public class HomeController {
 		}
 		response.getWriter().write(resMsg);
 	}
+	
+	
+	@RequestMapping(value = "/upload_img", method = RequestMethod.POST)
+	public void upload_img(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		String resMsg = "";
+		String model_id = (String) request.getParameter("model_id");
+		
+		try {
+			long startTime = System.currentTimeMillis();
+			String leftPath = session.getServletContext().getRealPath("/uploadFiles");
+			String allName = new Date().getTime() + "-" + file.getOriginalFilename();
+			String path = leftPath + "\\" + allName;
+			File newFile = new File(path);
+			if (!newFile.getParentFile().exists()) {
+				newFile.getParentFile().mkdirs();
+			}
+			file.transferTo(newFile);
+			modeSevice.upload_img(model_id,allName);
+			response.getWriter().write(allName);
+
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			resMsg = "0";
+		}
+		response.getWriter().write(resMsg);
+	}
+	
+	
+	@RequestMapping(value = "/allsave_mode", method = RequestMethod.POST)
+	private void allsave_mode(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		String _glmc = (String) request.getParameter("_glmc");
+		String _glfl = (String) request.getParameter("_glfl");
+		String _textarea = (String) request.getParameter("_textarea");
+		String id = (String) request.getParameter("mode_id");
+		try {
+			modeSevice.allsave_mode(id,_glmc,_glfl,_textarea);
+			response.getWriter().write("1000");
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
+	
+	
+	
 
 }

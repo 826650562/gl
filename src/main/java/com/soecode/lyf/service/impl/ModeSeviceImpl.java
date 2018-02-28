@@ -2,7 +2,6 @@ package com.soecode.lyf.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -107,9 +106,36 @@ public class ModeSeviceImpl implements ModeSevice {
 		return "1000";
 	}
 
-	public List getAllModeparts() {
+	public List getAllModeparts(String id) {
 		// TODO Auto-generated method stub
-		List res=_jd.queryForList("select * from mode_part");
+		List res=_jd.queryForList("select * from mode_part where modeId="+id);
 		return res;
+	}
+
+	public List getInfoOfPart(String id) {
+		// TODO Auto-generated method stub
+		List res=_jd.queryForList("select * from mode_part where id="+id);
+		return res;
+	}
+
+	public void update_part(String id, String name, String textArea) {
+		// TODO Auto-generated method stub
+	   _jd.execute("UPDATE  mode_part  SET part_info='"+textArea+"',part_name='"+name+"' where id="+id);
+	}
+
+	public void delete_part(String id) {
+		 _jd.execute("DELETE FROM mode_part  where id="+id);
+		// TODO Auto-generated method stub
+	}
+
+	public void upload_img(String model_id,String imgPath) {
+		// TODO Auto-generated method stub
+		 _jd.execute("UPDATE  mode  SET fenmian='"+imgPath+"' where id="+model_id);
+	}
+
+	public void allsave_mode(String id, String _glmc, String _glfl, String _textarea) {
+		// TODO Auto-generated method stub
+		 _jd.execute("UPDATE  mode  SET name='"+_glmc+"',type='"+_glfl+"',info='"+_textarea+"' where id="+id);
+		 
 	}
 }

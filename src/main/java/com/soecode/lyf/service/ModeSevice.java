@@ -2,9 +2,6 @@ package com.soecode.lyf.service;
 
 import java.util.List;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
-
 import com.soecode.lyf.entity.Mode;
 
 /**
@@ -28,13 +25,23 @@ public interface ModeSevice {
 	String saveModeType(String t);
 
 	Boolean selectModeType(String t);
-	
+
 	void deleteModeType(String t);
-	
-	String getModePath(String t1,String t2 );
+
+	String getModePath(String t1, String t2);
 
 	String saveModeParts(String bj_name, String bj_parts, String brief, String id);
 
-	List getAllModeparts();
+	List getAllModeparts(String id);
+
+	List getInfoOfPart(String id);
+
+	void update_part(String id, String name, String textArea);
+
+	void delete_part(String id);
+
+	void upload_img(String model_id, String imgPath);
+
+	void allsave_mode(String id, String _glmc, String _glfl, String _textarea);
 
 }
