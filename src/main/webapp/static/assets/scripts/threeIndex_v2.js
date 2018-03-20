@@ -17,9 +17,7 @@ $(function() {
 	var composer,
 		effectFXAA,
 		outlinePass;
-	//选中的
-	var checkoutParts = [];
-	var removeOrshowParts = [];
+
 	function mode_init() {
 		container = document.createElement('div');
 		$(".model-show").append(container);
@@ -41,7 +39,6 @@ $(function() {
 			renderer.render(scene, camera);
 		});
 */
-		// scene
 		var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
 		scene.add(ambientLight);
 		var pointLight = new THREE.PointLight(0xffffff, 0.8);
@@ -99,7 +96,7 @@ $(function() {
 						object.scale.set(0.1, 0.1, 0.1);
 						object.position.y = 0;
 						$(".main",window.parent.document).attr("mode_id",path[2]);
-						getParts(object, scene,path[2]);
+						window.parent.getParts(object, scene,path[2],outlinePass);
 						scene.add(object);
 					}, onProgress, onError);
 				});
@@ -112,7 +109,6 @@ $(function() {
 		container.appendChild(renderer.domElement);
 		//document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		//window.addEventListener('resize', onWindowResize, false);
-
 
 		composer = new THREE.EffectComposer(renderer);
 		var renderPass = new THREE.RenderPass(scene, camera);
@@ -180,156 +176,7 @@ $(function() {
 		requestAnimationFrame(animate);
 	}
 
-	function getParts(_datas, scene,id__) {
-		var parts_=  window.parent.document.getElementById("parts_");
-		var fenye=  window.parent.document.getElementById("fenye");
-		
-		//获取模型的原件
-		var datas = $.extend([], _datas.children);
-		var id_ = id__;
-		var html = [];
-		if (datas.length > 0) {
-			datas.map(function(data) {
-				html.push(getHtml(data));
-			});
-		} else {
-			$(parts_).html("<font>无数据</font>");
-		}
-		var len = html.length;
-		if (len > 0) {
-			//分页
-			var fenLen = 10;
-			layui.use([ 'laypage', 'layer' ], function() {
-				var laypage = layui.laypage,
-					layer = layui.layer;
-				//总页数低于页码总数
-				laypage.render({
-					elem : $("#fenye",window.parent.document),
-					count : len, //数据总数,
-					limit : fenLen,
-					groups : 2,
-					theme : "#01aaff",
-					jump : function(obj, first) {
-						//首次不执行
-						if (!first) {
-							$(parts_).html(gethtml(html, obj.curr, fenLen));
-						}
-						addEventerlister();
-					}
-				});
-			})
-			$(parts_).html(gethtml(html, 1, fenLen));
-			$(fenye).fadeIn(100);
-			//注册监控事件
 
-			function addEventerlister() {
-				var parts_=  window.parent.document.getElementById("parts_");
-				$(parts_).find("input").click(function() {
-					var type = $(this).attr("_type");
-					var id = $(this).attr("value");
-					if (type == "show") {
-						if ($(this).is(':checked')) {
-							checkoutParts.push(id);
-						} else {
-							var index = checkoutParts.indexOf(id);
-							if (index >= 0) {
-								checkoutParts.splice(index, 1);
-							}
-						}
-						outlinePass.selectedObjects = _getParts(checkoutParts);
-					} else {
-						if ($(this).is(':checked')) {
-							_datas.remove(_getParts([ id ])[0]);
-							removeOrshowParts.push(id)
-						} else {
-							var index = removeOrshowParts.indexOf(id);
-							if (index >= 0) {
-								checkoutParts.splice(index, 1);
-							}
-							_datas.add(_getParts([ id ])[0]);
-						}
-					}
-				});
-				
-				var _createParts=  window.parent.document.getElementById("_createParts");
-				//创建部件
-				$(_createParts).click(function() {
-					if (checkoutParts.length <= 0) {
-						alert('请先勾选部件！');
-						return false;
-					}else{
-						$("#bj-selected",window.parent.document).val(checkoutParts.toString());
-						$('#bjModal',window.parent.document).modal('show');
-					}
-				});
-				
-				$("#new_bj_create",window.parent.document).click(function(){
-					var bj_name =$.trim($("#bj-name",window.parent.document).val());
-					var bj_parts =checkoutParts.toString();
-					var brief = $('#bj-editer',window.parent.document).siblings('.layui-layedit').find('iframe').contents().find('body').html();
-					$.ajax({
-						type : "POST",
-						url : "saveModeParts",
-						data : {
-							bj_name : bj_name,
-							bj_parts : bj_parts,
-							brief:brief,
-							id:id_
-						},
-						async : false,
-						cache : false,
-						contentType : "application/x-www-form-urlencoded",
-						success : function(data) {
-							 if(data=="1000"){
-								 window.parent.getListOfParts(id_);
-								 $('#bjModal',window.parent.document).modal('hide');
-							 }
-						},
-						error : function(data) {
-							console.log("error:" + data.responseText);
-						}
-					});
-				});
-				
-			}
-			
-			
-			
-			function _getParts(arr) {
-				var modeParts = [];
-				arr.map(function(item) {
-					datas.map(function(data) {
-						if (data.name == item) {
-							modeParts.push(data);
-						}
-					});
-				});
-				return modeParts
-			}
-		}
-		
-		
-		function gethtml(html, cur, len) {
-			var h = "";
-			var be = (cur - 1) * len;
-			var end = cur * len;
-			for (var i = 0; i < html.length; i++) {
-				if (i >= be && i < end) {
-					h += html[i];
-				}
-			}
-			return h;
-		}
-		
-		
-	}
-
-
-	function getHtml(data) {
-		return "<tr> <th scope='row'>" + data.name + "</th>" +
-			"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='show'  /></td>" +
-			"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='hide'  /></td> </tr>";
-	}
 
 	//添加天空盒
 	function addSky() {

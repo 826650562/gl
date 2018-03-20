@@ -29,8 +29,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<bean id="ModeSevice" class="com.soecode.lyf.service.impl.ModeSeviceImpl">
-	</bean>
+	<!-- <bean id="ModeSevice" class="com.soecode.lyf.service.impl.ModeSeviceImpl">
+	</bean> -->
 
 	<!-- 4.扫描web相关的bean -->
 	<context:component-scan base-package="com.soecode" />

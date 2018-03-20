@@ -19,11 +19,35 @@
   width: 30px;
   z-index: 2;
 }
+#productModal button.close:hover{border-color:#FE4847;color:#FE4847}
+
+/*-------------------------------*/
+#xxxmodle .modal-dialog {
+  margin: 8% auto;
+  max-width: 100%;
+  line-height:28px; font-size:14px;
+  min-height: 300px;
+  transition: all 0.5s ease 0s;
+  width: 870px;
+}
+#xxxmodle button.close {
+  border: 1px solid #ddd;
+  height: 30px;
+  line-height: 30px;
+  opacity: 1;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  transition: all 0.3s ease 0s;
+  width: 30px;
+  z-index: 2;
+}
+#xxxmodle button.close:hover{border-color:#FE4847;color:#FE4847}
+
 .close > span {
   position: relative;
   top: -3px;
 }
-#productModal button.close:hover{border-color:#FE4847;color:#FE4847}
 .modal-header {
   border-bottom: 1px solid #e5e5e5;
   padding: 0;

@@ -10,8 +10,8 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<!
-doctype html>
+
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -24,17 +24,16 @@ doctype html>
 <link rel="stylesheet" href="${basePath}/home/css/core.css">
 <!-- Theme shortcodes/elements style -->
 <link rel="stylesheet" href="${basePath}/home/css/shortcode/shortcodes.css">
- 
+<!-- Theme main style -->
+<!-- Responsive css -->
 <link rel="stylesheet" href="${basePath}/home/css/responsive.css">
 <!-- User style -->
 <link rel="stylesheet" href="${basePath}/home/css/custom.css">
-
 <link href="${basePath}/home/css/z-layout.css" rel="stylesheet">
 <link href="${basePath}/home/css/style.css" rel="stylesheet">
 <!-- Modernizr JS -->
 <script src="${basePath}/home/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -89,8 +88,6 @@ doctype html>
 </header>
 <!-- header end -->
 
-
-
 <!-- slider-container start -->
 <div class="slider-container">
     <!-- Slider Image -->
@@ -136,10 +133,6 @@ doctype html>
     </div>
 </div>
 <!-- slider-container end -->
-
-
-
-	
 	<!-- new-arrival-area start -->
 	<div class="new-arrival-area pt-60 pb-60">
 		<div class="container">
@@ -155,10 +148,6 @@ doctype html>
 						<ul class="custom-tab text-center mb-40">
 							<li class="active"><a href="#home" data-toggle="tab">锅壳锅炉</a></li>
 							<li><a href="#profile" data-toggle="tab"> 水管锅炉</a></li>
-							<li><a href="#messages" data-toggle="tab"> 锅壳锅炉</a></li>
-							<li><a href="#settings" data-toggle="tab">锅壳锅炉</a></li>
-							<li><a href="#new" data-toggle="tab"> 锅壳锅炉</a></li>
-
 						</ul>
 						<!-- Tab panes -->
 						<div class="row">
@@ -336,276 +325,13 @@ doctype html>
 
 									</div>								
 								</div>
-								<div class="tab-pane" id="messages">
-									<div class="product-carousel">
-
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/4.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>  
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/2.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>  
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/3.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/6.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/5.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-
-									</div>								
-								</div>
-								<div class="tab-pane" id="settings">
-									<div class="product-carousel">
-
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/2.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>  
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/6.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>  
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/3.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/4.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/5.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-
-									</div>								
-								</div>
-								<div class="tab-pane" id="new">
-									<div class="product-carousel">
-
-										<div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/6.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>  
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/2.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>  
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/3.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/4.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-                                        <div class="col-md-12">
-											<div class="product-wrapper mb-40 mrg-nn-xs">
-												<div class="product-img">
-													<a href="#"><img src="${basePath}/home/images/product/5.jpg" alt="" /></a>
-													<span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-													<div class="product-action">
-														<a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-													</div>
-												</div>
-												<div class="product-content">
-													<div class="pro-title">
-														<h3><a href="#">LSS贯流式锅炉</a></h3>
-													</div>
-												</div>
-											</div>
-										</div>
-
-									</div>								
-								</div>
 							</div>
 						</div>
-                        
-                        
-                        
                         <div class="z-row">
                           <div class="z-col"></div>
                            <div><a href="#" class="cksybtn">查看所有</a></div>
                            <div class="z-col"></div>
                         </div>
-                        
-                        
 					</div>					
 				</div>
 			</div>
@@ -615,9 +341,6 @@ doctype html>
 	<!-- service-area start -->
 	<div class="service-area pt-60 pb-60 gray-bg">
 		<div class="container">
-        
-        
-        
            <div class="row">
              <div class="col-md-1 col-sm-0"></div>
              <div class="col-md-10 col-sm-12">
@@ -675,7 +398,7 @@ doctype html>
                  </div>
                  <div class="z-row">
                     <div class="z-col text-center">  
-                       <p>（1）使用业界流行的开发引擎，真实还原了锅炉组装、水循环、烟气循环等过程；&nbsp;&nbsp;（2）开发了水的流动、蒸发模型和蒸汽、烟气流动模型；&nbsp;&nbsp;（3）可配套使用HTC Vive VR头盔观看</p>
+                       <p>（1）使用业界流行的开发引擎，真实还原了锅炉组装、水循环、烟气循环等过程；&nbsp;&nbsp;（2）开发了水的流动、蒸发模型和蒸汽、烟气流动模型；&nbsp;&nbsp;（3）可配套使用HTC Vive VR头盔观看 </p>
                     </div>
                  </div>
 				</div>
@@ -685,7 +408,7 @@ doctype html>
                     <div class="z-col"></div>
                     <div>  
                         <div class="service-icon">
-							<i class="fa fa-file-text-o fa-2x"></i>
+							<i class="fa fa-pie-chart fa-2x"></i>
 						</div>
                     </div>
                     <div class="z-col"></div>
@@ -707,111 +430,118 @@ doctype html>
 		</div>
 	</div>
 	<!-- service-area end -->	
-    
-	<!-- best-sell-area start -->
-	<div class="best-sell-area pt-60 pb-60">
+
+    <!-- latest-blog-area start -->
+	<div class="latest-blog-area ptb-60">
 		<div class="container">
 			<div class="row">
 				<div class="section-title text-center mb-40">
 					<h2>案例集锦</h2>
 				</div>
-			</div>		
+			</div>	  		
 			<div class="row">
-				<div class="product-carousel">
-
-                    <div class="col-md-12">
-                        <div class="product-wrapper mb-40 mrg-nn-xs">
-                            <div class="product-img">
-                                <a href="#"><img src="${basePath}/home/images/product/6.jpg" alt="" /></a>
-                                <span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
+				<div class="blog-active">
+					<div class="col-lg-12">
+                       <div class="row">
+                          <div class="col-lg-12">
+                              <div class="blog-wrapper mb-30">
+                                <div class="blog-info">
+                                    <h3><a href="casedetail.html" style=" font-size:13px; color:#333;">人员违章 设备设施缺陷 安全管理缺陷 职业卫生</a></h3>
+                                    <div class="blog-meta">
+                                        <span class="f-left">2016-04-20 21:50:35</span>
+                                        <span class="f-right"><a href="casedetail.html">查看详情</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="pro-title">
-                                    <h3><a href="#">LSS贯流式锅炉</a></h3>
+                              </div>
+                          </div>
+                       </div>
+                       <div class="row">
+                          <div class="col-lg-12">
+                              <div class="blog-wrapper mb-30">
+                                <div class="blog-info">
+                                    <h3><a href="casedetail.html">2007年11月16日 辽宁省鞍山市鞍钢自动化公司设备安装公司锅炉爆炸事故</a></h3>
+                                    <div class="blog-meta">
+                                        <span class="f-left">2016-04-20 21:50:35</span>
+                                        <span class="f-right"><a href="casedetail.html">查看详情</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="col-md-12">
-                        <div class="product-wrapper mb-40 mrg-nn-xs">
-                            <div class="product-img">
-                                <a href="#"><img src="${basePath}/home/images/product/2.jpg" alt="" /></a>
-                                  <span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
+                              </div>
+                          </div>
+                       </div>       		
+					</div>
+                    
+                    <div class="col-lg-12">
+                       <div class="row">
+                          <div class="col-lg-12">
+                              <div class="blog-wrapper mb-30">
+                                <div class="blog-info">
+                                    <h3><a href="casedetail.html">2007年11月16日 辽宁省鞍山市鞍钢自动化公司设备安装公司锅炉爆炸事故</a></h3>
+                                    <div class="blog-meta">
+                                        <span class="f-left">2016-04-20 21:50:35</span>
+                                        <span class="f-right"><a href="casedetail.html">查看详情</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="pro-title">
-                                    <h3><a href="#">LSS贯流式锅炉</a></h3>
+                              </div>
+                          </div>
+                       </div>
+                       <div class="row">
+                          <div class="col-lg-12">
+                              <div class="blog-wrapper mb-30">
+                                <div class="blog-info">
+                                    <h3><a href="casedetail.html">2007年11月16日 辽宁省鞍山市鞍钢自动化公司设备安装公司锅炉爆炸事故</a></h3>
+                                    <div class="blog-meta">
+                                        <span class="f-left">2016-04-20 21:50:35</span>
+                                        <span class="f-right"><a href="casedetail.html">查看详情</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="col-md-12">
-                        <div class="product-wrapper mb-40 mrg-nn-xs">
-                            <div class="product-img">
-                                <a href="#"><img src="${basePath}/home/images/product/3.jpg" alt="" /></a>
-                                <span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
+                              </div>
+                          </div>
+                       </div>       		
+					</div>
+                    
+                    <div class="col-lg-12">
+                       <div class="row">
+                          <div class="col-lg-12">
+                              <div class="blog-wrapper mb-30">
+                                <div class="blog-info">
+                                    <h3><a href="casedetail.html">2007年11月16日 辽宁省鞍山市鞍钢自动化公司设备安装公司锅炉爆炸事故</a></h3>
+                                    <div class="blog-meta">
+                                        <span class="f-left">2016-04-20 21:50:35</span>
+                                        <span class="f-right"><a href="casedetail.html">查看详情</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="pro-title">
-                                    <h3><a href="#">LSS贯流式锅炉</a></h3>
+                              </div>
+                          </div>
+                       </div>
+                       <div class="row">
+                          <div class="col-lg-12">
+                              <div class="blog-wrapper mb-30">
+                                <div class="blog-info">
+                                    <h3><a href="casedetail.html">2007年11月16日 辽宁省鞍山市鞍钢自动化公司设备安装公司锅炉爆炸事故</a></h3>
+                                    <div class="blog-meta">
+                                        <span class="f-left">2016-04-20 21:50:35</span>
+                                        <span class="f-right"><a href="casedetail.html">查看详情</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="product-wrapper mb-40 mrg-nn-xs">
-                            <div class="product-img">
-                                <a href="#"><img src="${basePath}/home/images/product/4.jpg" alt="" /></a>
-                                <span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="pro-title">
-                                    <h3><a href="#">LSS贯流式锅炉</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="product-wrapper mb-40 mrg-nn-xs">
-                            <div class="product-img">
-                                <a href="#"><img src="${basePath}/home/images/product/5.jpg" alt="" /></a>
-                                <span class="new-label"><i class="fa fa-eye fa-fw"></i>12</span>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> 查看详情</a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="pro-title">
-                                    <h3><a href="#">LSS贯流式锅炉</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>	
-                
+                              </div>
+                          </div>
+                       </div>       		
+					</div>  
+				</div>	
+			</div>
+     
+            <div class="row">
+             <div class="col-lg-12">
                 <div class="z-row">
                   <div class="z-col"></div>
-                   <div><a href="#" class="cksybtn">查看所有</a></div>
-                   <div class="z-col"></div>
+                  <div><a href="#" class="cksybtn">查看所有</a></div>
+                  <div class="z-col"></div>
                 </div>
-                					
-			</div>
+             </div>
+            </div>             
 		</div>
 	</div>
-	<!-- best-sell-area end -->
+	<!-- latest-blog-area end -->
 	<!-- footer start -->
 	<footer class="black-bg">
 		<div class="footer-top-area ptb-30">
@@ -845,9 +575,6 @@ doctype html>
 		<!-- footer-bootom-area end -->
 	</footer>
 	<!-- footer end -->
-
-    
-    
     <!-- jquery latest version -->
     <script src="${basePath}/home/js/vendor/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap framework js -->
@@ -860,22 +587,22 @@ doctype html>
     <script src="${basePath}/home/js/jquery.nivo.slider.pack.js"></script>
     <!-- All js plugins included in this file. -->
     <script src="${basePath}/home/js/plugins.js"></script>
-    <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="${basePath}/home/js/main.js"></script>
     <script>
-    	$(function() {
-    		var len = $(".overlenhide").html().length;
-    		str = $(".overlenhide").html();
-    		var newstr = "";
-    		if (len > 80) {
-    			newstr = $(".overlenhide").html().substring(0, 80);
-    		}
-    		$(".overlenhide").html(newstr + "..." + "<span class='zk'>展开</span>");
-    		//console.log(len);
-    		$(".zk").click(function() {
-    			$(".overlenhide").html(str);
-    		});
-    	})
+       $(function(){
+		     var len=$(".overlenhide").html().length;
+			 str=$(".overlenhide").html();
+			 var newstr="";
+			 if(len>80){	 
+				  newstr=$(".overlenhide").html().substring(0,80);
+				 }
+			  $(".overlenhide").html(newstr+"..."+"<span class='zk'>展开</span>");
+		     //console.log(len);
+			  $(".zk").click(function(){
+				   $(".overlenhide").html(str);
+				}); 
+				
+		   })
     </script>
 </body>
 </html>

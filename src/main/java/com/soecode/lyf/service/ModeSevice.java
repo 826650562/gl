@@ -48,4 +48,26 @@ public interface ModeSevice {
 
 	List loadModel();
 
+	List getModeById(String id);
+
+	String MD5(String string);
+
+	void deleteMode(String _id);
+
+	String[] getTages();
+
+	String saveGF(String _gfmc, String _gfbb, String _gfjj, String youxianji, String type);
+
+	List getAllGFPars();
+
+	List getAllGFParsNode(String id);
+
+	List getguifanByid(String id);
+
+	String add_guifan(String _pid, String _parId);
+
+	String delete_guifan(String _pid, String _parId);
+
+	String add_guifan(String id, String title, String area);
+
 }

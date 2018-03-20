@@ -15,12 +15,9 @@ $(function() {
 
 		var delet_type;
 		$('#del-confirm-model').on('show.bs.modal', function(e) {
-			// do something...
 			delet_type = $("#_select_guoluType").find("option:selected").text();
 			$("#deleType_msg").text("确认删除'" + delet_type + "'吗");
 		})
-
-
 
 		$("#delete_type").click(function() {
 			deleteModeType(delet_type);
@@ -84,10 +81,11 @@ $(function() {
 			success : function(data) {
 				var res = JSON.parse(data);
 				var count = res.length;
-				var fenLen=3
+				var fenLen = 3
 				var htmls = [];
-				res.map(function(item,index) {
-					htmls.push(getHtmlModel(item,index));
+				res.reverse();
+				res.map(function(item, index) {
+					htmls.push(getHtmlModel(item, index));
 				});
 				if (htmls.length <= 0) {
 					$("#listOfGuolu").html("暂无数据！");
@@ -105,52 +103,73 @@ $(function() {
 								//首次不执行
 								if (!first) {
 									$("#listOfGuolu").html(gethtml(htmls, obj.curr, fenLen));
-								}else{
-									$("#listOfGuolu").html(gethtml(htmls, 1, fenLen));	
+								} else {
+									$("#listOfGuolu").html(gethtml(htmls, 1, fenLen));
 								}
 								addEvenlister();
-								
+
 							}
 						});
 
 					});
 				}
-			
+
 			},
 			error : function(data) {
 				console.log("error:" + data.responseText);
 			}
 		});
-		
-		function addEvenlister(){
-			$(".mode_watch").unbind().click(function(){
+
+		function addEvenlister() {
+			$(".mode_watch").unbind().click(function() {
 				//查看
-				
+				var id = $(this).parents("tr").attr("mode_id");
+				window.location.href = "../page/detail?tag_id=" + id;
 			});
-			$(".mode_update").unbind().click(function(){
+			$(".mode_update").unbind().click(function() {
 				//修改
-				var id=$(this).parents("tr").attr("mode_id");
-				window.location.href="addmodel?tag_id="+id;
-				
+				var id = $(this).parents("tr").attr("mode_id");
+				window.location.href = "addmodel?tag_id=" + id;
 			});
-			$(".mode_delete").unbind().click(function(){
+			$(".mode_delete").unbind().click(function() {
 				//删除
-				loadMode();
+				var id = $(this).parents("tr").attr("mode_id");
+				if (confirm("确认删除吗")) {
+					$.ajax({
+						type : "POST",
+						url : "deleteMode",
+						data : {
+							_id : id,
+						},
+						async : false,
+						cache : false,
+						contentType : "application/x-www-form-urlencoded",
+						success : function(data) {
+							loadMode();
+						},
+						error : function(data) {
+							console.log("error:" + data.responseText);
+						}
+					});
+
+				} else {
+					return;
+				}
 			});
 		}
 
-		function getHtmlModel(data,index) {
-			return '<tr mode_id='+data.id+'>' +
-				'<th scope="row">'+index+'</th>' +
-				'<td>'+data.name+'</td>' +
-				'<td><img src="/seckill/uploadFiles/'+data.fenmian+'" alt="" style="width: 40px;height:40px;"></td>' +
-				'<td>'+data.type+'</td>' +
+		function getHtmlModel(data, index) {
+			return '<tr mode_id=' + data.id + '>' +
+				'<th scope="row">' + index + '</th>' +
+				'<td>' + data.name + '</td>' +
+				'<td><img src="/seckill/uploadFiles/' + data.fenmian + '" alt="" style="width: 40px;height:40px;"></td>' +
+				'<td>' + data.type + '</td>' +
 				'<td>&nbsp;</td>' +
 				'<td><button type="button" class="btn btn-light mode_watch " >查看</button>' +
 				'<button type="button" class="btn btn-primary mode_update"   >修改</button>' +
 				'<button type="button" class="btn btn-danger mode_delete"  >删除</button></td></tr>'
 		}
-		
+
 		function gethtml(html, cur, len) {
 			var h = "";
 			var be = (cur - 1) * len;

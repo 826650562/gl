@@ -171,7 +171,7 @@ text-decoration: line-through;
 padding: 0 15px;}
 h2.title-block{border-bottom: 1px solid #ebebeb;
 color: #313131;
-font-size: 18px;
+font-size: 16px;
 font-weight: 700;
 line-height: 24px;
 margin-bottom: 20px;
@@ -188,36 +188,37 @@ font-weight: 700;
 margin-bottom: 15px;
 padding-bottom: 10px;
 text-transform: uppercase;}
-ul.sidebar-menu {
-  overflow: hidden;
-}
-ul.sidebar-menu li {
-  margin-bottom: 10px;
-}
+ul.sidebar-menu{
+	 height:647px;
+	 overflow-x:hidden;
+	 overflow-y:scroll;
+	}
 ul.sidebar-menu li a {
-  color: #7d7d7d;
-  display: inline;
+  color: #212121;
+  display:block;
   font-size: 14px;
   font-weight: normal;
+  border-radius:3px;
+  padding:10px 15px;
 }
-ul.sidebar-menu li a{}
-ul.sidebar-menu li a:hover{color:#F39C11}
+ul.sidebar-menu li a:hover{color:#fff; background:#232323;}
+ul.sidebar-menu li a.bjactive{ background:#eceff8; color:#212121;}
+ul.sidebar-menu li a.bjactive i{color:#fff !important;}
 ul.sidebar-menu li a span {
   float: right;
 }
 h2.page-heading {
   color: #474747;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 40px;
-  margin-bottom: 0;
+  margin:0px;
   overflow: hidden;
-  padding: 0 0 17px;
   text-transform: uppercase;
 }
 .page-heading span.heading-counter {
   float: right;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 40px;
   margin-bottom: 0;
   text-transform: none;
@@ -261,11 +262,38 @@ button.compare {
   background: #232323 none repeat scroll 0 0;
   border: 0 none;
   color: #fff;
-  height: 30px;
-  line-height: 30px;
   opacity: 1;
-  padding: 0 15px;
+  height:40px; line-height:40px;
+  width:100%;
+  padding:0px 20px;
+  border-radius:3px;
+   font-weight:normal;
 }
+button.compare:hover{background:#FFAE00;color:#fff}
+
+
+
+.jiscuanbtn {
+  background: #199adb none repeat scroll 0 0;
+  border: 0 none;
+  color: #fff;
+  opacity: 1;
+  height:40px; line-height:40px;
+  padding:0px 20px;
+  border-radius:3px;
+   font-weight:normal;
+}
+
+.jiscuanbtn:hover{background:#FFAE00;color:#fff}
+
+
+
+
+
+
+
+
+
 .shop-bar {
   border-bottom: 1px solid #ebebeb;
   border-top: 1px solid #ebebeb;
@@ -526,8 +554,9 @@ margin-right: 10px;}
   display: inline-block;
   height: 30px;
   line-height: 28px;
-  margin-right: 5px;
+  margin:0px 5px 10px 0px;
   padding: 0 15px;
+  
 }
 .share-icon a:hover{color:#fff;}
 .facebook{}
@@ -602,51 +631,3 @@ text-transform: uppercase;}
 .pro-desc > p {
   margin: 0;
 }
-
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}
-.{}

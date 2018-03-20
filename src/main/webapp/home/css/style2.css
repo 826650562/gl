@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+*{padding:0px;margin:0px;}
+body {font-family: 'microsoft yahei', Arial, Helvetica, sans-serif;color: #313131;background-color: #f6f6f6; font-size:14px;padding:0px;margin:0px; position:relative;}
+a{color:#313131;}
+a:hover{color:#313131; text-decoration:none;}
+p{color:#313131;}
+
+
+.mar0{margin:0px  !important;}
+.marB15{margin:0px 0px  15px 0px !important;}
+.marB20{margin:0px 0px 20px 0px !important;}
+.marT15{margin-top:15px;}
+.marT30{margin-top:30px;}
+.marLR15{margin:0px 15px;}
+
+.colorBlue{color:#0873bd !important;}
+.colorGray{color:#999 !important;}
+.color666{color:#666 !important;}
+.colorWhite{color:#fff;}
+.colorRed{color:#fc4023 !important;}
+.colorZise{color:#7d24fb !important;}
+.colorBlue{color:#0275e1;}
+.pad0{padding:0px !important;}
+.pad10{padding:10px !important;}
+.pad15{padding:15px !important;}
+.padB15{padding:0px 0px 15px 0px !important;}
+.padT15{padding-top:15px !important;}
+.padT20{padding-top:20px !important;}
+.padR5{padding-right:5px !important;}
+.padR15{padding-right:15px !important;}
+.padR20{padding-right:20px !important;}
+.padR25{padding-right:25px !important;}
+.padR30{padding-right:30px !important;}
+.padL10{padding-left:10px !important;}
+.padLR8{padding:0px 8px !important;}
+.padLR15{padding:0px 15px !important;}
+.padLR20{padding:0px 20px !important;}
+.padLR25{padding:0px 25px !important;}
+.padLR30{padding:0px 30px !important;}
+.padTB5{padding:5px 0px !important;}
+.padTB10{padding:10px 0px !important;}
+.padTB15{padding:15px 0px !important;}
+.padTB20{padding:20px 0px !important;}
+.padTB25{padding:25px 0px !important;}
+.padTB30{padding:30px 0px !important;}
+
+.bgGray{ background:#f6f6f6;}
+.bgWhite{ background:#fff;}
+.bgBlue{ background:#0873bd;}
+.bgBlack{ background:#333;}
+.ellipsis{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+.zInput{width:100%; height:45px;border:none; border-top-right-radius:4px; border-bottom-right-radius:4px;}
+.width100{width:100% !important;}
+
+
+
+/*------layui 滚动条 end-------*/
+::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-button:vertical {
+    display: none;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+    background-color: #e2e2e2;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: rgba(0, 0, 0, .35);
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+    background-color: rgba(0, 0, 0, .38);
+}
+/*------layui 滚动条 end-------*/
+
+
+
+
+
+.labelcont{height:40px; line-height:40px;}
+.gkglslect{width:400px !important;}
+.mxtopbar{padding:15px;border-bottom:1px solid #e2e2e2; background:#fff; margin-bottom:15px;}
+.tdimg img{ height:80px; display:block;}
+.bottomblank{height:120px;}
+
+.panal1{background:#fff;border-right:1px solid #e6e6e6; width:350px; position:absolute;left:0px; top:0px;bottom:0px;}
+.panal2{    padding-top: 10px;background:#fff;border-right:1px solid #e6e6e6;  width:400px; position:absolute;top:0px;bottom:0px; left:350px; overflow-x:hidden; overflow-y:scroll;}
+.panal3{background:#fff; position:absolute;top:0px;bottom:0px; left:750px; right:0px; overflow-x:hidden; overflow-y:scroll;}
+.gftopcz{padding:15px; background:#f8f8f8; border-bottom:1px solid #e6e6e6;}
+.gflistbox{position:absolute;top:130px;bottom:0px;left:0px; width:100%; padding:15px; box-sizing:border-box; overflow-x:hidden; overflow-y:scroll;}
+.gfliitem{padding:5px 15px; display:block; line-height:26px; color:#666; cursor:pointer; background:#f6f6f6;border-radius:3px; margin-bottom:10px; }
+.gfliitem:hover{ background:#eceff8;}
+.gfliitemActive{ background:#199adb; color:#fff;}
+.gftopsearch{padding:15px;border-bottom:1px solid #e2e2e2; background:#f8f8f8; margin-bottom:15px;}
+
+
+/*---------tree start----------*/
+#treeView {}
+.treeNode {height: 32px;border: 1px solid #fff;border-width: 1px 0;cursor: pointer;font-size: 0;}
+.treeNode:hover {background: #f4f9fd;border-color: #e5f0fb;}
+.treeNode-cur,.treeNode-cur:hover {background: #e5f0fb;border-color: #BBD4EF #fff;}
+.icon {display: inline-block;background: url(../images/icon.png) no-repeat;vertical-align: middle;}
+.icon-minus {width: 15px;height: 15px;margin: 0 4px;background-position: -30px -22px;}
+.icon-add {width: 15px;height: 15px;margin: 0 4px;background-position: -30px 0;}
+.icon-file {width: 22px;height: 18px;margin-right: 5px;background-position: 0 -22px;}
+.title {position: relative;top: 6px;font-size: 14px;}
+.treeNode-empty .icon-minus {background-position: -999px -999px;}
+.treeNode-empty .icon-add {background-position: -999px -999px;}
+#treeView ul.none {display: none;}
+/*---------tree end----------*/

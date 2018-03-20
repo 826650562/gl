@@ -59,6 +59,13 @@
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 	margin: -17px 0 0 0;
 }
+
+#parts_ tr th {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
 </style>
 
 
@@ -70,7 +77,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"> <img
+				<a href="../page/index"> <img
 					src="${basePath}/static/assets/img/logo_white_2.png"
 					class="img-responsive logo">
 				</a>
@@ -128,8 +135,8 @@
 									<form id="upload" action="#" enctype="multipart/form-data">
 										<input id="uploadObj" type="file" name="file">
 									</form>
-									<span class="result"> <i class="fa fa-tag"></i> <span
-										class="ant-upload-list-item-name" title="bg.png">bg.png</span>
+									<span class="result" style="display:none"> <i class="fa fa-tag"></i> <span
+										class="ant-upload-list-item-name file_name"  title="bg.png"></span>
 									</span>
 								</button>
 								<button type="button" id="" class="btn btn-light btn-sm mtl-up">
@@ -138,7 +145,9 @@
 									<form id="upload2" action="#" enctype="multipart/form-data">
 										<input id="uploadMtl" type="file" name="file">
 									</form>
-
+									<span class="result"  style="display:none" > <i class="fa fa-tag"></i> <span
+										class="ant-upload-list-item-name file_name"  title="bg.png"></span>
+									</span>
 								</button>
 								<button type="button" id="submit-mode"
 									class="btn btn-primary create">
@@ -182,8 +191,10 @@
 										<thead style="background-color: #dee2e6">
 											<tr>
 												<th scope="col">图元</th>
-												<th scope="col">选中</th>
-												<th scope="col">隐藏</th>
+												<th scope="col">选中<input id="checkedAll"
+													type='checkbox'></th>
+												<th scope="col">隐藏<input id="uncheckAll"
+													type='checkbox'></th>
 											</tr>
 										</thead>
 										<tbody id="parts_">
@@ -318,7 +329,7 @@
 								</div>
 								</style="opacity:.01"div>
 							</div>
-							<div class="row" style="margin-top: 35px;">
+							<div class="row" style="margin-top: 65px;">
 								<div class="col-md-12">
 									编辑锅炉简介：
 									<textarea id="editor" class="editor_mode">
@@ -341,70 +352,45 @@
 		</div>
 
 		<script>
-			$('.nav li').each(function() {
-				$(this).on('click', function() {
-					$(this).addClass('active');
-					$(this).siblings('li').removeClass('active');
+			$(function() {
+				$('.nav li').each(function() {
+					$(this).on('click', function() {
+						$(this).addClass('active');
+						$(this).siblings('li').removeClass('active');
+					});
 				});
-			});
 		
-			var file = $('#obj-upload'),
-				aim = $('#aim');
-			file.on('change', function(e) {
-				//e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
-				var name = e.currentTarget.files[0].name;
-				aim.val(name);
-			});
+				var file = $('#obj-upload'),
+					aim = $('#aim');
+				file.on('change', function(e) {
+					//e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
+					var name = e.currentTarget.files[0].name;
+					aim.val(name);
+				});
 		
-			layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
-				var layedit = layui.layedit;
-				layedit.build('editor'); //建立编辑器
-				layedit.build('bj-editer');
-				layedit.build('bj-update-editer');
-				var laypage = layui.laypage;
-				laypage.render({
-					elem : 'page1',
-					count : 200,
-					layout : [ 'count', 'prev', 'page', 'next', 'limit', 'skip' ],
-					jump : function(obj) {
-						console.log(obj)
-					}
-				});
-				laypage.render({
-					elem : 'page2',
-					count : 200,
-					layout : [ 'count', 'prev', 'page', 'next', 'limit', 'skip' ],
-					jump : function(obj) {
-						console.log(obj)
-					}
-				});
-			});
-	 
-   
-   	</script>
+			})
+		</script>
 		<script>
 			$(function() {
 				var tag = "${is_show_Create}";
-				if (tag && tag == "_1001") {
-					//隐藏
+				layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
+					var layedit = layui.layedit;
+					layedit.build('bj-editer');
+					layedit.build('bj-update-editer');
+					if (!tag && tag == "") {
+						layedit.build('editor'); //建立编辑器 
+					}
+				});
 		
-		
-					$('.add').hide();
-					$('.checkout').show();
-		
-				}
-		
-			});
-		</script>
-
-
-
-		<script>
-			$(function() {
 				$("#uploadObj").change(function(e) {
 					if (e.target.value.indexOf(".obj") < 0) {
 						$("#upload")[0].reset();
 						alert("格式错误，请重新上传");
+					} else {
+						var values = e.target.value.split("\\");
+						var name = values[values.length-1];
+						$(".file_name").eq(0).text(name)
+						$(".file_name").eq(0).parent().show();
 					}
 				});
 		
@@ -412,7 +398,13 @@
 					if (e.target.value.indexOf(".mtl") < 0) {
 						$("#upload2")[0].reset();
 						alert("格式错误，请重新上传");
+					} else {
+						var values = e.target.value.split("\\");
+						var name = values[values.length-1];
+						$(".file_name").eq(1).text(name);
+						$(".file_name").eq(1).parent().show();
 					}
+		
 				});
 		
 				$("#uploadfengmian").change(function(e) {
@@ -554,20 +546,18 @@
 				}
 		
 				//展示并编辑部件详细信息
-				function showAndEdit() {
-					$("#_showAndedit_name").val($("#_glmc").val());
+				function showAndEdit(name, type) {
+					$("#_showAndedit_name").val(name || $("#_glmc").val());
 					var delet_type = $("#_select_guoluType").find("option:selected").text();
-					$("#_showAndedit_select").val(delet_type);
+					$("#_showAndedit_select").val(type || delet_type);
 					$('.add').hide();
 					$('.checkout').show();
 					//加载模型
-		
 					var _glmc = $.trim($("#_glmc").val());
 					var _glfl = $.trim($("#_select_guoluType").find("option:selected").text());
-		
 					$("#modeContainer").attr({
-						'_name' : _glmc,
-						'_type' : _glfl
+						'_name' : name || _glmc,
+						'_type' : type || _glfl,
 					});
 					$("#modeContainer").attr("src", "${basePath }/home/loadMode");
 				}
@@ -586,9 +576,8 @@
 						},
 						contentType : "application/x-www-form-urlencoded",
 						success : function(data) {
-							console.info(data);
 							var res = JSON.parse(data);
-							_fullListOfParts(res)
+							res.length > 0 && _fullListOfParts(res)
 						},
 						error : function(data) {
 							console.log("error:" + data.responseText);
@@ -604,7 +593,7 @@
 							$("#parts_list").html("<font>无数据</font>");
 						} else {
 							//分页
-							var fenLen = 6;
+							var fenLen = 10;
 							layui.use([ 'laypage', 'layer' ], function() {
 								var laypage = layui.laypage,
 									layer = layui.layer;
@@ -741,17 +730,285 @@
 						}
 						return h;
 					}
-		
 					function _getHtml(item) {
 						return "<tr id=" + item.id + " modeId=" + item.modeId + "><th scope='row'>" + item.part_name + "</th><td><label class='fancy-checkbox'>" +
 							"<input type='checkbox'><span></span></label></td></tr>";
 					}
-		
 				}
 		
 		
 		
 		
+				//选中的
+				var checkoutParts = [];
+				var removeOrshowParts = [];
+				var yem_check = [];
+				var yem_outline_check = [];
+		
+				getParts = function(_datas, scene, id__, outlinePass) {
+					var parts_ = document.getElementById("parts_");
+					var fenye = document.getElementById("fenye");
+		
+					//获取模型的原件
+					var datas = $.extend([], _datas.children);
+					var id_ = id__;
+					var html = [];
+					if (datas.length > 0) {
+						datas.map(function(data) {
+							html.push(getHtml(data));
+						});
+					} else {
+						$(parts_).html("<font>无数据</font>");
+					}
+					var len = html.length;
+					if (len > 0) {
+						//分页
+						var fenLen = 10;
+						layui.use([ 'laypage', 'layer' ], function() {
+							var laypage = layui.laypage,
+								layer = layui.layer;
+							//总页数低于页码总数
+							laypage.render({
+								elem : $("#fenye"),
+								count : len, //数据总数,
+								limit : fenLen,
+								groups : 2,
+								theme : "#01aaff",
+								jump : function(obj, first) {
+									//首次不执行
+									if (!first) {
+										$(parts_).html(gethtml(html, obj.curr, fenLen));
+									} else {
+										$(parts_).html(gethtml(html, 1, fenLen));
+										$(fenye).fadeIn(100);
+									}
+									$(parts_).find("input").each(function(index, item) {
+										if ($(item).attr("_type") == "show") {
+											if (checkoutParts.indexOf($(item).val()) >= 0) {
+												$(item).prop("checked", true);
+											} else
+												$(item).prop("checked", false);
+										} else {
+											if (removeOrshowParts.indexOf($(item).val()) >= 0) {
+												$(item).prop("checked", true);
+											} else
+												$(item).prop("checked", false);
+										}
+									});
+									if (yem_outline_check.indexOf(obj.curr) >= 0) {
+										$("#checkedAll").prop("checked", true);
+									} else {
+										$("#checkedAll").prop("checked", false);
+									}
+									if (yem_check.indexOf(obj.curr) >= 0) {
+										$("#uncheckAll").prop("checked", true);
+									} else {
+										$("#uncheckAll").prop("checked", false);
+									}
+									addEventerlister(obj.curr);
+								}
+							});
+						})
+		
+						//注册监控事件
+						function addEventerlister(p) {
+							var pageNub = p;
+							var parts_ = document.getElementById("parts_");
+							$(parts_).find("input").unbind().click(function() {
+								var type = $(this).attr("_type");
+								var id = $(this).attr("value");
+								if (type == "show") {
+									if ($(this).is(':checked')) {
+										checkoutParts.push(id);
+									} else {
+										var index = checkoutParts.indexOf(id);
+										if (index >= 0) {
+											checkoutParts.splice(index, 1);
+										}
+									}
+									outlinePass.selectedObjects = _getParts(checkoutParts);
+								} else {
+									if ($(this).is(':checked')) {
+										_datas.remove(_getParts([ id ])[0]);
+										removeOrshowParts.push(id)
+									} else {
+										var index = removeOrshowParts.indexOf(id);
+										if (index >= 0) {
+											removeOrshowParts.splice(index, 1);
+										}
+										_datas.add(_getParts([ id ])[0]);
+									}
+								}
+							});
+		
+		
+							$("#checkedAll").unbind().click(function() {
+								//全选
+								var input = $("#parts_").find("input[_type=show]");
+								if ($(this).is(':checked')) {
+									$("[_type=show]").prop("checked", true);
+									input.each(function(index, item) {
+										checkoutParts.push($(item).val());
+									});
+									yem_outline_check.push(pageNub);
+								} else {
+									$("[_type=show]").prop("checked", false);
+									input.each(function(index, item) {
+										var index = checkoutParts.indexOf($(item).val());
+										if (index >= 0) {
+											checkoutParts.splice(index, 1);
+										}
+									});
+		
+									var index = yem_outline_check.indexOf(pageNub);
+									if (index >= 0) {
+										yem_outline_check.splice(index, 1);
+									}
+								}
+								outlinePass.selectedObjects = _getParts(checkoutParts);
+							});
+							$("#uncheckAll").unbind().click(function() {
+								var input = $("#parts_").find("input[_type=hide]");
+								//全选
+								if ($(this).is(':checked')) {
+									$("[_type=hide]").prop("checked", true);
+									input.each(function(index, item) {
+										_datas.remove(_getParts([ $(item).val() ])[0]);
+										removeOrshowParts.push($(item).val())
+									});
+									yem_check.push(pageNub);
+								} else {
+									$("[_type=hide]").prop("checked", false);
+									input.each(function(index, item) {
+										var index = removeOrshowParts.indexOf($(item).val());
+										if (index >= 0) {
+											removeOrshowParts.splice(index, 1);
+										}
+										_datas.add(_getParts([ $(item).val() ])[0]);
+									});
+									var index = yem_check.indexOf(pageNub);
+									if (index >= 0) {
+										yem_check.splice(index, 1);
+									}
+								}
+							});
+		
+							var _createParts = document.getElementById("_createParts");
+							//创建部件
+							$(_createParts).click(function() {
+								if (checkoutParts.length <= 0) {
+									alert('请先勾选部件！');
+									return false;
+								} else {
+									$("#bj-selected").val(checkoutParts.toString());
+									$('#bjModal').modal('show');
+								}
+							});
+		
+							$("#new_bj_create").click(function() {
+								var bj_name = $.trim($("#bj-name").val());
+								var bj_parts = checkoutParts.toString();
+								var brief = $('#bj-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html();
+								$.ajax({
+									type : "POST",
+									url : "saveModeParts",
+									data : {
+										bj_name : bj_name,
+										bj_parts : bj_parts,
+										brief : brief,
+										id : id_
+									},
+									async : false,
+									cache : false,
+									contentType : "application/x-www-form-urlencoded",
+									success : function(data) {
+										if (data == "1000") {
+											getListOfParts(id_);
+											$('#bjModal').modal('hide');
+										}
+									},
+									error : function(data) {
+										console.log("error:" + data.responseText);
+									}
+								});
+							});
+		
+						}
+		
+						function _getParts(arr) {
+							var modeParts = [];
+							arr.map(function(item) {
+								datas.map(function(data) {
+									if (data.name == item) {
+										modeParts.push(data);
+									}
+								});
+							});
+							return modeParts
+						}
+					}
+		
+					function gethtml(html, cur, len) {
+						var h = "";
+						var be = (cur - 1) * len;
+						var end = cur * len;
+						for (var i = 0; i < html.length; i++) {
+							if (i >= be && i < end) {
+								h += html[i];
+							}
+						}
+						return h;
+					}
+				}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				function getHtml(data) {
+					return "<tr> <th scope='row'>" + data.name + "</th>" +
+						"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='show'  /></td>" +
+						"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='hide'  /></td> </tr>";
+				}
+		
+		
+		
+				if (tag && tag != "") {
+					//隐藏
+					$('.add').hide();
+					$('.checkout').show();
+					$.ajax({
+						type : "POST",
+						url : "getModeById",
+						data : {
+							_id : tag
+						},
+						async : false,
+						cache : false,
+						contentType : "application/x-www-form-urlencoded",
+						success : function(data) {
+							var res = JSON.parse(data)[0];
+							showAndEdit(res.name, res.type);
+							getListOfParts(tag);
+							$(".upload-img").css("background", "url(/seckill/uploadFiles/" + res.fenmian + ") no-repeat 0px 0px");
+							layui.use([ 'layedit' ], function() {
+								var layedit = layui.layedit;
+								layedit.build('editor'); //建立编辑器
+								$('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html(res.info);
+							});
+		
+						},
+						error : function(data) {
+							console.log("error:" + data.responseText);
+						}
+					});
+		
+		
+				}
 			})
 		</script>
 </body>
