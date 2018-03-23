@@ -66,6 +66,22 @@ public class HomeController {
 		return "addmodel";	
 	}
 	
+	//添加案例中的标记
+	@RequestMapping(value = "/add_tagename", method = RequestMethod.POST)
+	private void add_tagename( HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String tage_name = (String) request.getParameter("_tage_name");
+		try {
+			List res =modeSevice.addTageName(tage_name);
+			JSONArray  json= JSONArray.fromObject(res);
+			response.getWriter().write(json.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
+	
+	
 	@RequestMapping(value = "/get_GFinfo", method = RequestMethod.POST)
 	private void get_GFinfo(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -144,24 +160,65 @@ public class HomeController {
 		}
 	}
 	
+	
+	@RequestMapping(value = "/search_guifanPar", method = RequestMethod.POST)
+	private void search_guifanPar(Model model, HttpServletRequest request,HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		String _gjz = (String) request.getParameter("_gjz");
+		List res=modeSevice.search_guifanPar(_gjz);
+		try {
+			JSONArray json = JSONArray.fromObject(res);
+			response.getWriter().write(json.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "/search_guifanParPlus", method = RequestMethod.POST)
+	private void search_guifanParPlus(Model model, HttpServletRequest request,HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		String _gjz = (String) request.getParameter("_gjz");
+		List res=modeSevice.search_guifanParPlus(_gjz);
+		try {
+			JSONArray json = JSONArray.fromObject(res);
+			response.getWriter().write(json.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	@RequestMapping(value = "/loadMode")
 	private String loadMode(Model model) {
 		return "mode";
 	}
 	
+	@RequestMapping(value = "/loadCase")
+	private void loadCase(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		try {
+			List _cases= modeSevice.getCases();
+			JSONArray json = JSONArray.fromObject(_cases);
+			response.getWriter().write(json.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
+	
+	
+	
 	//gsm 跳转编辑案例界面
 	@RequestMapping(value = "/case", method = RequestMethod.GET)
 	private String addcase(Model model) {
 		String[] types = modeSevice.getTypes();
 		String[] tages = modeSevice.getTages();
-		
 		model.addAttribute("_types", types);
 		model.addAttribute("_tages", tages);
 		return "case";
 	}
-	
-	
 
 	// 这里需要修改
 	@RequestMapping(value = "/getModePath")
@@ -275,7 +332,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping(value = "/add_guifan", method = RequestMethod.POST)
+	@RequestMapping(value = "/add_guifan_update", method = RequestMethod.POST)
 	private void add_guifan(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String id = (String) request.getParameter("_id");
@@ -291,10 +348,23 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping(value = "/delete_guifan_All", method = RequestMethod.POST)
+	private void delete_guifan_All(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		String parid = (String) request.getParameter("parid");
+	 
+		try {
+			String res = modeSevice.delete_guifanAll(parid);
+			response.getWriter().write(res);
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
 	
 	
 	
-	
+ 
 	
 	@RequestMapping(value = "/getInfoOfPart", method = RequestMethod.POST)
 	private void getInfoOfPart(HttpServletResponse response, HttpServletRequest request) throws IOException {

@@ -70,4 +70,14 @@ public interface ModeSevice {
 
 	String add_guifan(String id, String title, String area);
 
+	String delete_guifanAll(String parid);
+
+	List search_guifanPar(String _gjz);
+
+	List search_guifanParPlus(String _gjz);
+
+	List addTageName(String tage_name);
+
+	List getCases();
+
 }

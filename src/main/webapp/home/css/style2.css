@@ -100,7 +100,7 @@ p{color:#313131;}
 .gftopcz{padding:15px; background:#f8f8f8; border-bottom:1px solid #e6e6e6;}
 .gflistbox{position:absolute;top:130px;bottom:0px;left:0px; width:100%; padding:15px; box-sizing:border-box; overflow-x:hidden; overflow-y:scroll;}
 .gfliitem{padding:5px 15px; display:block; line-height:26px; color:#666; cursor:pointer; background:#f6f6f6;border-radius:3px; margin-bottom:10px; }
-.gfliitem:hover{ background:#eceff8;}
+.gfliitem:hover{ background:#eceff8;color:#000000}
 .gfliitemActive{ background:#199adb; color:#fff;}
 .gftopsearch{padding:15px;border-bottom:1px solid #e2e2e2; background:#f8f8f8; margin-bottom:15px;}
 

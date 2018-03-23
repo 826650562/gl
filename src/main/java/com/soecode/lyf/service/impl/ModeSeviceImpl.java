@@ -1,6 +1,8 @@
 package com.soecode.lyf.service.impl;
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,8 +150,10 @@ public class ModeSeviceImpl implements ModeSevice {
 	public void subCase(String caseName, String caseType, String caseBrief, String caseTips) {
 		// TODO Auto-generated method stub
 		//
-		String sql = "insert into `case` (name, type, tips, brief) values" + "('" + caseName + "','" + caseType + "','"
-				+ caseTips + "','" + caseBrief + "'); ";
+		Date day=new Date();    
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		String sql = "insert into `case` (name, type, tips, brief,date) values" + "('" + caseName + "','" + caseType + "','"
+				+ caseTips + "','" + caseBrief +"','" + df.format(day) + "'); ";
 		_jd.execute(sql);
 
 	}
@@ -214,7 +218,7 @@ public class ModeSeviceImpl implements ModeSevice {
 
 	public String saveGF(String _gfmc, String _gfbb, String _gfjj, String youxianji, String type) {
 		// TODO Auto-generated method stub
-		String sql = "select * from guifan_par where gfName=" + "'_gfmc'";
+		String sql = "select * from guifan_par where gfName= '"+_gfmc+"'";
 		List res = _jd.queryForList(sql);
 		if (res.size() > 0) {
 			// 存在
@@ -260,7 +264,7 @@ public class ModeSeviceImpl implements ModeSevice {
 		// TODO Auto-generated method stub
 		List res = null;
 		try {
-			res = _jd.queryForList("select * from guifan where parId=" + id);
+			res = _jd.queryForList("select t.*,t2.type,t2.youxianji from guifan t join guifan_par t2  on t.parId=t2.id    where t.parId=" + id);
 
 		} catch (Exception e) {
 			return null;
@@ -301,6 +305,7 @@ public class ModeSeviceImpl implements ModeSevice {
 		// TODO Auto-generated method stub
 		try {
 			_jd.execute("delete from  guifan  where id="+_pid +" and parId="+_parId);
+			_jd.execute("delete from  guifan  where pid="+_pid +" and parId="+_parId);
 			return "success";
 		} catch (Exception e) {
 			return "error";
@@ -317,6 +322,63 @@ public class ModeSeviceImpl implements ModeSevice {
 		} catch (Exception e) {
 			return "error";
 		}
+	}
+
+	public String delete_guifanAll(String parid) {
+		// TODO Auto-generated method stub
+		try {
+			_jd.execute("delete from  guifan  where  parId="+parid);
+			_jd.execute("delete from  guifan_par  where id="+parid );
+			return "success";
+		} catch (Exception e) {
+			return "error";
+		}
+	}
+
+	public List search_guifanPar(String _gjz) {
+		// TODO Auto-generated method stub
+		List res = null;
+		try {
+			res = _jd.queryForList("select * from guifan_par where gfName like '%"+ _gjz +"%'");
+		} catch (Exception e) {
+			return null;
+		}
+		return res;
+		
+	}
+
+	public List search_guifanParPlus(String _gjz) {
+		// TODO Auto-generated method stub
+		List res = null;
+		try {
+			res = _jd.queryForList("select * from guifan_par t join guifan q on  t.id=q.parId WHERE   t.id in( SELECT parId from   guifan WHERE nodeName like '%"+_gjz+"%' OR content like '%"+_gjz+"%' ) order by youxianji ");
+		} catch (Exception e) {
+			return null;
+		}
+		return res;
+	}
+
+	public List addTageName(String tage_name) {
+		// TODO Auto-generated method stub
+		String sql = "select * from case_tage where tage= '"+tage_name+"'";
+		List res = _jd.queryForList(sql);
+		List _res=null;
+		if (res.size() <=0)   {
+			try {
+				_jd.execute("INSERT INTO case_tage (tage) VALUES ('" + tage_name +  "')");
+				_res = _jd.queryForList("select * from case_tage");
+				
+			} catch (Exception e) {
+			}
+		}
+		return _res;
+	}
+
+	public List getCases() {
+		// TODO Auto-generated method stub
+		String sql = "select * FROM `case`";
+		List res = _jd.queryForList(sql);
+		return res;
 	}
 
 }

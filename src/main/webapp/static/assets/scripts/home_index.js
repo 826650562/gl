@@ -91,8 +91,6 @@ $(function() {
 					$("#listOfGuolu").html("暂无数据！");
 				} else {
 					layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
-						var layedit = layui.layedit;
-						layedit.build('editor'); //建立编辑器
 						var laypage = layui.laypage;
 						laypage.render({
 							elem : 'page1',
@@ -105,6 +103,121 @@ $(function() {
 									$("#listOfGuolu").html(gethtml(htmls, obj.curr, fenLen));
 								} else {
 									$("#listOfGuolu").html(gethtml(htmls, 1, fenLen));
+								}
+								//addEvenlister();
+
+							}
+						});
+
+					});
+				}
+
+			},
+			error : function(data) {
+				console.log("error:" + data.responseText);
+			}
+		});
+
+		function addEvenlister() {
+			$(".mode_watch").unbind().click(function() {
+				//查看
+				var id = $(this).parents("tr").attr("mode_id");
+				window.location.href = "../page/detail?tag_id=" + id;
+			});
+			$(".mode_update").unbind().click(function() {
+				//修改
+				var id = $(this).parents("tr").attr("mode_id");
+				window.location.href = "addmodel?tag_id=" + id;
+			});
+			$(".mode_delete").unbind().click(function() {
+				//删除
+				var id = $(this).parents("tr").attr("mode_id");
+				if (confirm("确认删除吗")) {
+					$.ajax({
+						type : "POST",
+						url : "deleteMode",
+						data : {
+							_id : id,
+						},
+						async : false,
+						cache : false,
+						contentType : "application/x-www-form-urlencoded",
+						success : function(data) {
+							loadMode();
+						},
+						error : function(data) {
+							console.log("error:" + data.responseText);
+						}
+					});
+
+				} else {
+					return;
+				}
+			});
+		}
+
+		function getHtmlModel(data, index) {
+			return  '<tr mode_id=' + data.id + '>' +
+			'<th scope="row">' + index + '</th>' +
+			'<td>' + data.name + '</td>' +
+			'<td><img src="/seckill/uploadFiles/' + data.fenmian + '" alt="" style="width: 40px;height:40px;"></td>' +
+			'<td>' + data.type + '</td>' +
+			'<td>&nbsp;</td>' +
+			'<td><button type="button" class="btn btn-light mode_watch " >查看</button>' +
+			'<button type="button" class="btn btn-primary mode_update"   >修改</button>' +
+			'<button type="button" class="btn btn-danger mode_delete"  >删除</button></td></tr>'
+		}
+
+		function gethtml(html, cur, len) {
+			var h = "";
+			var be = (cur - 1) * len;
+			var end = cur * len;
+			for (var i = 0; i < html.length; i++) {
+				if (i >= be && i < end) {
+					h += html[i];
+				}
+			}
+			return h;
+		}
+
+	}
+
+
+
+	//加载首页案例数据
+	function loadCase() {
+		$.ajax({
+			type : "POST",
+			url : "loadCase",
+			async : false,
+			cache : false,
+			success : function(data) {
+				var res = JSON.parse(data);
+				var count = res.length;
+				var fenLen = 3
+				var htmls = [];
+				res.reverse();
+				res.map(function(item, index) {
+					htmls.push(getHtmlModel(item, index));
+				});
+				if (htmls.length <= 0) {
+					$("#case_contrent").html("暂无数据！");
+				} else {
+					layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
+						var layedit = layui.layedit;
+						layedit.build('editor'); //建立编辑器
+						var laypage = layui.laypage;
+						laypage.render({
+							elem : 'page2',
+							count : count,
+							limit : fenLen,
+							layout : [ 'count', 'prev', 'page', 'next', 'skip' ],
+							jump : function(obj, first) {
+								//首次不执行
+								if (!first) {
+									$("#case_contrent").html(gethtml(htmls, obj.curr, fenLen));
+								} else {
+									$("#case_contrent").html(gethtml(htmls, 1, fenLen));
 								}
 								addEvenlister();
 
@@ -159,15 +272,19 @@ $(function() {
 		}
 
 		function getHtmlModel(data, index) {
-			return '<tr mode_id=' + data.id + '>' +
-				'<th scope="row">' + index + '</th>' +
-				'<td>' + data.name + '</td>' +
-				'<td><img src="/seckill/uploadFiles/' + data.fenmian + '" alt="" style="width: 40px;height:40px;"></td>' +
-				'<td>' + data.type + '</td>' +
-				'<td>&nbsp;</td>' +
-				'<td><button type="button" class="btn btn-light mode_watch " >查看</button>' +
-				'<button type="button" class="btn btn-primary mode_update"   >修改</button>' +
-				'<button type="button" class="btn btn-danger mode_delete"  >删除</button></td></tr>'
+				return  '<tr> <th scope="row">'+data.id+'</th>'+
+				'<td>'+data.name+'</td> <td><img'+
+					'src="${basePath}/static/assets/img/fengmian.png" alt=""'+
+					'style="width: 40px;height:40px;"></td>'+
+				'<td>'+data.type+'</td>'+
+				'<td>'+data.tips+'</td>'+
+				'<td>'+data.date+'</td>'+
+				'<td>'+
+					'<button type="button" class="btn btn-light watch">查看</button>'+
+					'<button type="button" class="btn btn-primary">修改</button>'+
+					'<button type="button" class="btn btn-danger">删除</button>'+
+				'</td>'+
+			'</tr>';
 		}
 
 		function gethtml(html, cur, len) {
@@ -184,5 +301,7 @@ $(function() {
 
 	}
 
+
 	loadMode();
+	loadCase()
 })

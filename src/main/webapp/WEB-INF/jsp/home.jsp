@@ -62,8 +62,8 @@
 			</div>
 		</nav>
 		<!-- END NAVBAR -->
-		
-  		<!-- LEFT SIDEBAR -->
+
+		<!-- LEFT SIDEBAR -->
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
@@ -77,15 +77,15 @@
 						<li><a href="${basePath}/home//case" class=""> <i
 								class="fa fa-briefcase"></i> <span>添加案例</span>
 						</a></li>
-						<li><a href="${basePath}/home/gfgl" class=""> <i class="fa fa-file"></i>
-								<span>规范管理</span>
+						<li><a href="${basePath}/home/gfgl" class=""> <i
+								class="fa fa-file"></i> <span>规范管理</span>
 						</a></li>
 					</ul>
 				</nav>
 			</div>
 		</div>
 		<!-- END LEFT SIDEBAR -->
-	<%--    <jsp:include page="./head.jsp" flush="true"></jsp:include>  --%>
+		<%--    <jsp:include page="./head.jsp" flush="true"></jsp:include>  --%>
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
@@ -113,7 +113,9 @@
 								<a href="${basePath }/home/addmodel">新建锅炉模型</a>
 							</button>
 							<button type="button" class="btn btn-info"
-								style="margin-right:10px;"><a href="${basePath }/home/case">新建案例</a></button>
+								style="margin-right:10px;">
+								<a href="${basePath }/home/case">新建案例</a>
+							</button>
 						</div>
 					</div>
 					<div class="model row">
@@ -144,7 +146,7 @@
 											</tr>
 										</thead>
 										<tbody id="listOfGuolu">
-											 
+
 										</tbody>
 									</table>
 									<div id="page1"></div>
@@ -180,22 +182,24 @@
 												<th scope="col">操作</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">1</th>
-												<td>MDS锅炉</td>
-												<td><img
-													src="${basePath}/static/assets/img/fengmian.png" alt=""
-													style="width: 40px;height:40px;"></td>
-												<td>锅壳锅炉</td>
-												<td>特种设备,事故案例</td>
-												<td>17-11-11</td>
-												<td>
-													<button type="button" class="btn btn-light watch">查看</button>
-													<button type="button" class="btn btn-primary">修改</button>
-													<button type="button" class="btn btn-danger">删除</button>
-												</td>
-											</tr>
+										<tbody id="case_contrent">
+								<%-- 			<c:forEach var="stu" items="${_cases}">
+												<tr>
+													<th scope="row">"${stu.id}"</th>
+													<td>${stu.name}</td>
+													<td><img
+														src="${basePath}/static/assets/img/fengmian.png" alt=""
+														style="width: 40px;height:40px;"></td>
+													<td>${stu.type}</td>
+													<td>${stu.tips}</td>
+													<td>${stu.date}</td>
+													<td>
+														<button type="button" class="btn btn-light watch">查看</button>
+														<button type="button" class="btn btn-primary">修改</button>
+														<button type="button" class="btn btn-danger">删除</button>
+													</td>
+												</tr>
+											</c:forEach> --%>
 
 										</tbody>
 									</table>
@@ -495,7 +499,7 @@
 				$(this).siblings('li').removeClass('active');
 			});
 		});
-		
+	
 		$('.watch').click(function() {
 			$('.pot-index').hide();
 			$('.checkout').show();

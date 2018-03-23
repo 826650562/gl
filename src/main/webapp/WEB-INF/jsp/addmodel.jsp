@@ -29,6 +29,7 @@
 	href="${basePath}/static/assets/vendor/linearicons/style.css">
 <link rel="stylesheet"
 	href="${basePath}/static/assets/vendor/toastr/toastr.min.css">
+<link rel="stylesheet" href="${basePath}/static/assets/css/z-layout.css">
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${basePath}/static/assets/css/checkout.css">
 <link rel="stylesheet" href="${basePath}/static/assets/css/main.css">
@@ -52,6 +53,16 @@
 	src="${basePath}/static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${basePath}/static/assets/scripts/klorofil-common.js"></script>
 <script src="${basePath}/static/assets/vendor/toastr/toastr.min.js"></script>
+
+
+<script type="text/javascript" charset="utf-8"
+	src="${basePath}/static/assets/scripts/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="${basePath}/static/assets/scripts/editor_api.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8"
+	src="${basePath}/static/assets/scripts/zh-cn/zh-cn.js"></script>
 
 <style>
 .list_parts {
@@ -135,8 +146,9 @@
 									<form id="upload" action="#" enctype="multipart/form-data">
 										<input id="uploadObj" type="file" name="file">
 									</form>
-									<span class="result" style="display:none"> <i class="fa fa-tag"></i> <span
-										class="ant-upload-list-item-name file_name"  title="bg.png"></span>
+									<span class="result" style="display:none"> <i
+										class="fa fa-tag"></i> <span
+										class="ant-upload-list-item-name file_name" title="bg.png"></span>
 									</span>
 								</button>
 								<button type="button" id="" class="btn btn-light btn-sm mtl-up">
@@ -145,8 +157,9 @@
 									<form id="upload2" action="#" enctype="multipart/form-data">
 										<input id="uploadMtl" type="file" name="file">
 									</form>
-									<span class="result"  style="display:none" > <i class="fa fa-tag"></i> <span
-										class="ant-upload-list-item-name file_name"  title="bg.png"></span>
+									<span class="result" style="display:none"> <i
+										class="fa fa-tag"></i> <span
+										class="ant-upload-list-item-name file_name" title="bg.png"></span>
 									</span>
 								</button>
 								<button type="button" id="submit-mode"
@@ -240,7 +253,9 @@
 										</div>
 										<div class="form-group">
 											<label for="bj-name">部件简介说明:</label>
-											<div id="bj-editer"></div>
+											<!-- <div id="bj-editer"></div> -->
+											<script id="bj-editer" type="text/plain"
+												style="width:100%;height:350px;"></script>
 										</div>
 
 									</div>
@@ -253,6 +268,74 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- 创建部件 Modal -->
+						<div class="modal fade" id="insertModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true" style=" background: #fff;  ">
+
+
+							<!-- breadcrumb start -->
+							<div class="service-area pb-20">
+								<div class="container">
+
+									<div class="z-row padT20">
+										<div class="z-col gljjtitle text-center">东莞特检法规搜索</div>
+									</div>
+
+									<div class="z-row">
+										<div class="z-col"></div>
+										<div>
+											<div class="z-row">
+												<div class="z-col">
+													<input type="text" class="ymssinput" id="guanjianci"
+														placeholder="请输入搜索关键词">
+												</div>
+												<div class="z-col">
+													<button class="layui-btn layui-btn-normal ymssbtn">搜索</button>
+												</div>
+											</div>
+										</div>
+										<div class="z-col"></div>
+									</div>
+
+								</div>
+							</div>
+							<!-- breadcrumb end -->
+
+							<div class="service-area pb-30">
+								<div class="container">
+									<div class="z-row  ">
+										<div class="z-col"></div>
+										<div class="padLR5">
+											<span class="ymssjsbor  ymssjs " id="allRes">全部</span>
+										</div>
+										<div class="padLR5">
+											<span class="ymssjsbor" id="allNowRes">现行</span>
+										</div>
+										<div class="padLR5">
+											<span class="ymssjsbor" id="allResGo">废止</span>
+										</div>
+										<div class="padLR5">
+											<span class="ymssjsbor" id="allReplace">被替代</span>
+										</div>
+										<div class="z-col"></div>
+									</div>
+
+									<div class="search_contiren"></div>
+									<div id="search_page"></div>
+									<div class="z-row">
+										<div class="form-group"
+											style="float: right;margin-bottom: 0px;">
+											<button type="button" class="btn btn-primary" id="cancen_d">取消</button>
+											<button type="button" class="btn btn-danger" id="yes_seach">确定</button>
+										</div>
+										<div class="z-col"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div class="row" style="margin-top: 35px">
 							<div class="col-md-12">
 								<div>编辑部件信息</div>
@@ -289,7 +372,13 @@
 											</div>
 											<div class="form-group">
 												<label for="bj-name">部件简介说明:</label>
-												<div id="bj-update-editer"></div>
+												<script id="bj-update-editer" type="text/plain"
+													style="width:100%;height:350px;"></script>
+											</div>
+											<div class="form-group"
+												style="float: left;margin-bottom: 0px;">
+												<button type="button" class="btn btn-primary"
+													data-toggle="modal" id="insertGF">插入规范</button>
 											</div>
 											<div class="form-group"
 												style="float: right;margin-bottom: 0px;">
@@ -332,8 +421,10 @@
 							<div class="row" style="margin-top: 65px;">
 								<div class="col-md-12">
 									编辑锅炉简介：
-									<textarea id="editor" class="editor_mode">
-                                    </textarea>
+									<!-- <textarea id="editor" class="editor_mode">
+                                    </textarea> -->
+									<script id="editor" type="text/plain"
+										style="width:100%;height:350px;"></script>
 								</div>
 							</div>
 							<div class="row" style="margin-top: 35px;">
@@ -370,289 +461,228 @@
 		
 			})
 		</script>
+
+		<script type="text/javascript">
+		
+			//实例化编辑器
+			//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+			UE.getEditor('editor');
+			UE.getEditor('bj-editer');
+			UE.getEditor('bj-update-editer');
+		</script>
+
+
 		<script>
 			$(function() {
 				var tag = "${is_show_Create}";
 				layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
-					var layedit = layui.layedit;
-					layedit.build('bj-editer');
-					layedit.build('bj-update-editer');
-					if (!tag && tag == "") {
-						layedit.build('editor'); //建立编辑器 
-					}
-				});
+					layer = layui.layer,
 		
-				$("#uploadObj").change(function(e) {
-					if (e.target.value.indexOf(".obj") < 0) {
-						$("#upload")[0].reset();
-						alert("格式错误，请重新上传");
-					} else {
-						var values = e.target.value.split("\\");
-						var name = values[values.length-1];
-						$(".file_name").eq(0).text(name)
-						$(".file_name").eq(0).parent().show();
-					}
-				});
-		
-				$("#uploadMtl").change(function(e) {
-					if (e.target.value.indexOf(".mtl") < 0) {
-						$("#upload2")[0].reset();
-						alert("格式错误，请重新上传");
-					} else {
-						var values = e.target.value.split("\\");
-						var name = values[values.length-1];
-						$(".file_name").eq(1).text(name);
-						$(".file_name").eq(1).parent().show();
-					}
-		
-				});
-		
-				$("#uploadfengmian").change(function(e) {
-					var bujianId = $(".main").attr("mode_id");
-					var img = e.target.value;
-					if (img.length >= 0) {
-						$.ajax({
-							type : "POST",
-							url : "${basePath }/home/upload_img?model_id=" + bujianId,
-							data : new FormData($("#upload_fengmian")[0]),
-							async : false,
-							cache : false,
-							contentType : false,
-							processData : false,
-							success : function(data) {
-								$(".upload-img").css("background", "url(/seckill/uploadFiles/" + data + ") no-repeat 0px 0px");
-							},
-							error : function(data) {
-								console.log("error:" + data.responseText);
-							}
-						});
-					}
-					$("#upload_fengmian")[0].reset();
-				});
-		
-				//全部保存
-				$("#AllSave—mode").unbind().click(function() {
-					var name = $.trim($("#_showAndedit_name").val());
-					var delet_type = $("#_showAndedit_select").val();
-					var textarea = $('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html();
-					var mode_id = $(".main").attr("mode_id");
-					if (name.length <= 0) {
-						alert("锅炉名称不能为空！");
-						return;
-					}
-					if (textarea.length < 0) {
-						alert("锅炉简介不能为空！");
-						return;
-					}
-					$.ajax({
-						type : "POST",
-						url : "allsave_mode",
-						data : {
-							_glmc : name,
-							_glfl : delet_type,
-							_textarea : textarea,
-							mode_id : mode_id
-						},
-						async : false,
-						cache : false,
-						contentType : "application/x-www-form-urlencoded",
-						success : function(data) {
-							if (data == "1000") {
-								alert("保存成功");
-								window.location.href = "index";
-							}
-						},
-						error : function(data) {
-							console.log("error:" + data.responseText);
+					$("#uploadObj").change(function(e) {
+						if (e.target.value.indexOf(".obj") < 0) {
+							$("#upload")[0].reset();
+							layer.msg("格式错误，请重新上传", {
+								icon : 2
+							});
+						} else {
+							var values = e.target.value.split("\\");
+							var name = values[values.length - 1];
+							$(".file_name").eq(0).text(name)
+							$(".file_name").eq(0).parent().show();
 						}
 					});
-				});
 		
+					$("#uploadMtl").change(function(e) {
+						if (e.target.value.indexOf(".mtl") < 0) {
+							$("#upload2")[0].reset();
+							layer.msg("格式错误，请重新上传", {
+								icon : 2
+							});
+						} else {
+							var values = e.target.value.split("\\");
+							var name = values[values.length - 1];
+							$(".file_name").eq(1).text(name);
+							$(".file_name").eq(1).parent().show();
+						}
 		
+					});
 		
-				$("#submit-mode").click(function() {
-					var _glmc = $.trim($("#_glmc").val());
-					var _glfl = $.trim($("#_select_guoluType").find("option:selected").text());
-					var uploadObj = $("#uploadObj").val();
-					var uploadMtl = $("#uploadMtl").val();
-		
-		
-					if (_glmc.length <= 0) {
-						alert("名称不能为空");
-						return false;
-					}
-		
-					if (_glfl.length <= 0) {
-						alert("分类不能为空");
-						return false;
-					}
-					if (uploadObj.indexOf(".obj") > 0 && uploadMtl.indexOf(".mtl") > 0) {
-					} else {
-						alert("请上传完整的模型及材料");
-						return false;
-					}
-					savePic(_glmc, _glfl, uploadObj, uploadMtl);
-				});
-		
-				function savePic(_glmc, _glfl, uploadObj, uploadMtl) {
-					var ajaxUrl = "${basePath }/home/saveHeaderPic";
-					var ajaxModeInfo = "${basePath }/home/saveModeInfo";
-					var formData = [ new FormData($("#upload")[0]), new FormData($("#upload2")[0]) ];
-					var index = 2;
-					sendFile(sendFile, 0);
-					function sendFile(fn, index) {
-						$.ajax({
-							type : "POST",
-							url : ajaxUrl,
-							data : formData[index],
-							async : false,
-							cache : false,
-							contentType : false,
-							processData : false,
-							success : function(data) {
-								if (index < 1) {
-									index++;
-									fn(fn, index);
-								} else {
-									submitValue(_glmc, _glfl);
+					$("#uploadfengmian").change(function(e) {
+						var bujianId = $(".main").attr("mode_id");
+						var img = e.target.value;
+						if (img.length >= 0) {
+							$.ajax({
+								type : "POST",
+								url : "${basePath }/home/upload_img?model_id=" + bujianId,
+								data : new FormData($("#upload_fengmian")[0]),
+								async : false,
+								cache : false,
+								contentType : false,
+								processData : false,
+								success : function(data) {
+									$(".upload-img").css("background", "url(/seckill/uploadFiles/" + data + ") no-repeat 0px 0px");
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
 								}
-							},
-							error : function(data) {
-								console.log("error:" + data.responseText);
-							}
-						});
-					}
-					function submitValue(_glmc, _glfl) {
+							});
+						}
+						$("#upload_fengmian")[0].reset();
+					});
+		
+					//全部保存
+					$("#AllSave—mode").unbind().click(function() {
+						var name = $.trim($("#_showAndedit_name").val());
+						var delet_type = $("#_showAndedit_select").val();
+						//var textarea = $('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html();
+						var textarea = UE.getEditor('editor').getContent();
+		
+						var mode_id = $(".main").attr("mode_id");
+						if (name.length <= 0) {
+							layer.msg("锅炉名称不能为空！", {
+								icon : 2
+							});
+							return;
+						}
+						if (textarea.length < 0) {
+							layer.msg("锅炉简介不能为空！", {
+								icon : 2
+							});
+							return;
+						}
 						$.ajax({
 							type : "POST",
-							url : ajaxModeInfo,
+							url : "allsave_mode",
 							data : {
-								_glmc : _glmc,
-								_glfl : _glfl,
+								_glmc : name,
+								_glfl : delet_type,
+								_textarea : textarea,
+								mode_id : mode_id
 							},
 							async : false,
 							cache : false,
 							contentType : "application/x-www-form-urlencoded",
 							success : function(data) {
 								if (data == "1000") {
-									showAndEdit();
+									layer.msg("保存成功", {
+										icon : 1
+									});
+									window.location.href = "index";
 								}
 							},
 							error : function(data) {
 								console.log("error:" + data.responseText);
 							}
 						});
-					}
-				}
-		
-				//展示并编辑部件详细信息
-				function showAndEdit(name, type) {
-					$("#_showAndedit_name").val(name || $("#_glmc").val());
-					var delet_type = $("#_select_guoluType").find("option:selected").text();
-					$("#_showAndedit_select").val(type || delet_type);
-					$('.add').hide();
-					$('.checkout').show();
-					//加载模型
-					var _glmc = $.trim($("#_glmc").val());
-					var _glfl = $.trim($("#_select_guoluType").find("option:selected").text());
-					$("#modeContainer").attr({
-						'_name' : name || _glmc,
-						'_type' : type || _glfl,
 					});
-					$("#modeContainer").attr("src", "${basePath }/home/loadMode");
-				}
 		
-				var bujianId;
-				//拉出部件列表
-				getListOfParts = function(id) {
-					bujianId = id;
-					$.ajax({
-						type : "POST",
-						url : "getAllModeparts",
-						async : false,
-						cache : false,
-						data : {
-							_id : id
-						},
-						contentType : "application/x-www-form-urlencoded",
-						success : function(data) {
-							var res = JSON.parse(data);
-							res.length > 0 && _fullListOfParts(res)
-						},
-						error : function(data) {
-							console.log("error:" + data.responseText);
+		
+		
+					$("#submit-mode").click(function() {
+						var _glmc = $.trim($("#_glmc").val());
+						var _glfl = $.trim($("#_select_guoluType").find("option:selected").text());
+						var uploadObj = $("#uploadObj").val();
+						var uploadMtl = $("#uploadMtl").val();
+		
+		
+						if (_glmc.length <= 0) {
+							layer.msg("名称不能为空", {
+								icon : 2
+							});
+							return false;
 						}
-					});
-					function _fullListOfParts(res) {
-						var _hr = [];
-						res.map(function(item) {
-							_hr.push(_getHtml(item));
-						});
-						var len = _hr.length;
-						if (len <= 0) {
-							$("#parts_list").html("<font>无数据</font>");
-						} else {
-							//分页
-							var fenLen = 10;
-							layui.use([ 'laypage', 'layer' ], function() {
-								var laypage = layui.laypage,
-									layer = layui.layer;
-								//总页数低于页码总数
-								laypage.render({
-									elem : "fenye_edit",
-									count : len, //数据总数,
-									limit : fenLen,
-									groups : 2,
-									theme : "#01aaff",
-									jump : function(obj, first) {
-										//首次不执行
-										if (!first) {
-											$("#parts_list").html(gethtml(_hr, obj.curr, fenLen));
-										}
-										addEvenlister()
-									}
-								});
+		
+						if (_glfl.length <= 0) {
+							layer.msg("分类不能为空", {
+								icon : 2
 							})
+							return false;
 						}
-						$("#parts_list").html(gethtml(_hr, 1, fenLen));
-						$(".bj-table").append($("#fenye_edit"));
-						$("#fenye_edit").fadeIn(100);
-						addEvenlister();
+						if (uploadObj.indexOf(".obj") > 0 && uploadMtl.indexOf(".mtl") > 0) {
+						} else {
+							layer.msg("请上传完整的模型及材料", {
+								icon : 2
+							})
+							return false;
+						}
+						savePic(_glmc, _glfl, uploadObj, uploadMtl);
+					});
+		
+					function savePic(_glmc, _glfl, uploadObj, uploadMtl) {
+						var ajaxUrl = "${basePath }/home/saveHeaderPic";
+						var ajaxModeInfo = "${basePath }/home/saveModeInfo";
+						var formData = [ new FormData($("#upload")[0]), new FormData($("#upload2")[0]) ];
+						var index = 2;
+						sendFile(sendFile, 0);
+						function sendFile(fn, index) {
+							$.ajax({
+								type : "POST",
+								url : ajaxUrl,
+								data : formData[index],
+								async : false,
+								cache : false,
+								contentType : false,
+								processData : false,
+								success : function(data) {
+									if (index < 1) {
+										index++;
+										fn(fn, index);
+									} else {
+										submitValue(_glmc, _glfl);
+									}
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
+								}
+							});
+						}
+						function submitValue(_glmc, _glfl) {
+							$.ajax({
+								type : "POST",
+								url : ajaxModeInfo,
+								data : {
+									_glmc : _glmc,
+									_glfl : _glfl,
+								},
+								async : false,
+								cache : false,
+								contentType : "application/x-www-form-urlencoded",
+								success : function(data) {
+									if (data == "1000") {
+										showAndEdit();
+									}
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
+								}
+							});
+						}
 					}
 		
-					function addEvenlister() {
-						$("#parts_list").find("tr").unbind().click(function() {
-							getInfoOfPart($(this).attr("id"));
+					//展示并编辑部件详细信息
+					function showAndEdit(name, type) {
+						$("#_showAndedit_name").val(name || $("#_glmc").val());
+						var delet_type = $("#_select_guoluType").find("option:selected").text();
+						$("#_showAndedit_select").val(type || delet_type);
+						$('.add').hide();
+						$('.checkout').show();
+						//加载模型
+						var _glmc = $.trim($("#_glmc").val());
+						var _glfl = $.trim($("#_select_guoluType").find("option:selected").text());
+						$("#modeContainer").attr({
+							'_name' : name || _glmc,
+							'_type' : type || _glfl,
 						});
-		
-						$("#update_part").unbind().click(function() {
-							//保存修改后的部件
-							var name = $.trim($('#bj-update-name').val());
-							var textArea = $('#bj-update-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html()
-							var id = $('.new-model h4').attr("_id_part");
-							if (name.length <= 0 || textArea.length <= 0) {
-								alert("主要信息不能为空~");
-								return false;
-							}
-							update_part(id, name, textArea);
-						});
-		
-						$("#delete_part").unbind().click(function() {
-							//删除该部件
-							if (confirm("确认删除吗")) {
-								var id = $('.new-model h4').attr("_id_part");
-								delete_part(id);
-							} else {
-								return;
-							}
-		
-						});
+						$("#modeContainer").attr("src", "${basePath }/home/loadMode");
 					}
 		
-					function getInfoOfPart(id) {
+					var bujianId;
+					//拉出部件列表
+					getListOfParts = function(id) {
+						bujianId = id;
 						$.ajax({
 							type : "POST",
-							url : "getInfoOfPart",
+							url : "getAllModeparts",
 							async : false,
 							cache : false,
 							data : {
@@ -660,355 +690,593 @@
 							},
 							contentType : "application/x-www-form-urlencoded",
 							success : function(data) {
-								var res = JSON.parse(data)[0];
-								$('.new-model h4').hide().attr("_id_part", id);
-								$('.new-model-box').show();
-								$('.new-model-box .bj-select').val(res.part_ids);
-								$('#bj-update-name').val(res.part_name);
-								$('#bj-update-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html(res.part_info);
+								var res = JSON.parse(data);
+								res.length > 0 && _fullListOfParts(res)
 							},
 							error : function(data) {
 								console.log("error:" + data.responseText);
 							}
 						});
-					}
-		
-					function update_part(id, name, textArea) {
-						//保存修改后的部件
-						$.ajax({
-							type : "POST",
-							url : "update_part",
-							async : false,
-							cache : false,
-							data : {
-								_id : id,
-								name : name,
-								textArea : textArea
-							},
-							contentType : "application/x-www-form-urlencoded",
-							success : function(data) {
-								getListOfParts(bujianId);
-								alert("保存成功~！");
-							},
-							error : function(data) {
-								console.log("error:" + data.responseText);
-							}
-						});
-					}
-					function delete_part(id, name, textArea) {
-						//保存修改后的部件
-						$.ajax({
-							type : "POST",
-							url : "delete_part",
-							async : false,
-							cache : false,
-							data : {
-								_id : id,
-							},
-							contentType : "application/x-www-form-urlencoded",
-							success : function(data) {
-								//更新列表
-								getListOfParts(bujianId);
-								$('.new-model h4').show()
-								$('.new-model-box').hide();
-							},
-							error : function(data) {
-								console.log("error:" + data.responseText);
-							}
-						});
-					}
-		
-		
-					function gethtml(html, cur, len) {
-						var h = "";
-						var be = (cur - 1) * len;
-						var end = cur * len;
-						for (var i = 0; i < html.length; i++) {
-							if (i >= be && i < end) {
-								h += html[i];
-							}
-						}
-						return h;
-					}
-					function _getHtml(item) {
-						return "<tr id=" + item.id + " modeId=" + item.modeId + "><th scope='row'>" + item.part_name + "</th><td><label class='fancy-checkbox'>" +
-							"<input type='checkbox'><span></span></label></td></tr>";
-					}
-				}
-		
-		
-		
-		
-				//选中的
-				var checkoutParts = [];
-				var removeOrshowParts = [];
-				var yem_check = [];
-				var yem_outline_check = [];
-		
-				getParts = function(_datas, scene, id__, outlinePass) {
-					var parts_ = document.getElementById("parts_");
-					var fenye = document.getElementById("fenye");
-		
-					//获取模型的原件
-					var datas = $.extend([], _datas.children);
-					var id_ = id__;
-					var html = [];
-					if (datas.length > 0) {
-						datas.map(function(data) {
-							html.push(getHtml(data));
-						});
-					} else {
-						$(parts_).html("<font>无数据</font>");
-					}
-					var len = html.length;
-					if (len > 0) {
-						//分页
-						var fenLen = 10;
-						layui.use([ 'laypage', 'layer' ], function() {
-							var laypage = layui.laypage,
-								layer = layui.layer;
-							//总页数低于页码总数
-							laypage.render({
-								elem : $("#fenye"),
-								count : len, //数据总数,
-								limit : fenLen,
-								groups : 2,
-								theme : "#01aaff",
-								jump : function(obj, first) {
-									//首次不执行
-									if (!first) {
-										$(parts_).html(gethtml(html, obj.curr, fenLen));
-									} else {
-										$(parts_).html(gethtml(html, 1, fenLen));
-										$(fenye).fadeIn(100);
-									}
-									$(parts_).find("input").each(function(index, item) {
-										if ($(item).attr("_type") == "show") {
-											if (checkoutParts.indexOf($(item).val()) >= 0) {
-												$(item).prop("checked", true);
-											} else
-												$(item).prop("checked", false);
-										} else {
-											if (removeOrshowParts.indexOf($(item).val()) >= 0) {
-												$(item).prop("checked", true);
-											} else
-												$(item).prop("checked", false);
+						function _fullListOfParts(res) {
+							var _hr = [];
+							res.map(function(item) {
+								_hr.push(_getHtml(item));
+							});
+							var len = _hr.length;
+							if (len <= 0) {
+								$("#parts_list").html("<font>无数据</font>");
+							} else {
+								//分页
+								var fenLen = 10;
+								layui.use([ 'laypage', 'layer' ], function() {
+									var laypage = layui.laypage,
+										layer = layui.layer;
+									//总页数低于页码总数
+									laypage.render({
+										elem : "fenye_edit",
+										count : len, //数据总数,
+										limit : fenLen,
+										groups : 2,
+										theme : "#01aaff",
+										jump : function(obj, first) {
+											//首次不执行
+											if (!first) {
+												$("#parts_list").html(gethtml(_hr, obj.curr, fenLen));
+											}
+											addEvenlister()
 										}
 									});
-									if (yem_outline_check.indexOf(obj.curr) >= 0) {
-										$("#checkedAll").prop("checked", true);
-									} else {
-										$("#checkedAll").prop("checked", false);
-									}
-									if (yem_check.indexOf(obj.curr) >= 0) {
-										$("#uncheckAll").prop("checked", true);
-									} else {
-										$("#uncheckAll").prop("checked", false);
-									}
-									addEventerlister(obj.curr);
+								})
+							}
+							$("#parts_list").html(gethtml(_hr, 1, fenLen));
+							$(".bj-table").append($("#fenye_edit"));
+							$("#fenye_edit").fadeIn(100);
+							addEvenlister();
+						}
+		
+						function addEvenlister() {
+							$("#parts_list").find("tr").unbind().click(function() {
+								getInfoOfPart($(this).attr("id"));
+							});
+		
+							$("#update_part").unbind().click(function() {
+								//保存修改后的部件
+								var name = $.trim($('#bj-update-name').val());
+								//var textArea = $('#bj-update-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html()
+								var textArea = UE.getEditor('bj-update-editer').getContent();
+								var id = $('.new-model h4').attr("_id_part");
+								if (name.length <= 0 || textArea.length <= 0) {
+									layer.msg("主要信息不能为空~", {
+										icon : 2
+									})
+									return false;
+								}
+								update_part(id, name, textArea);
+							});
+		
+							$("#delete_part").unbind().click(function() {
+								//删除该部件
+								layer.confirm('确认删除吗', {
+									btn : [ '否', '确定' ] //按钮
+								}, function() {
+									layer.msg('已取消！', {
+										icon : 1
+									});
+								}, function() {
+									var id = $('.new-model h4').attr("_id_part");
+									delete_part(id);
+								})
+							});
+						}
+		
+						function getInfoOfPart(id) {
+							$.ajax({
+								type : "POST",
+								url : "getInfoOfPart",
+								async : false,
+								cache : false,
+								data : {
+									_id : id
+								},
+								contentType : "application/x-www-form-urlencoded",
+								success : function(data) {
+									var res = JSON.parse(data)[0];
+									$('.new-model h4').hide().attr("_id_part", id);
+									$('.new-model-box').show();
+									$('.new-model-box .bj-select').val(res.part_ids);
+									$('#bj-update-name').val(res.part_name);
+									UE.getEditor('bj-update-editer').setContent(res.part_info);
+								//$('#bj-update-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html(res.part_info);
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
 								}
 							});
-						})
+						}
 		
-						//注册监控事件
-						function addEventerlister(p) {
-							var pageNub = p;
-							var parts_ = document.getElementById("parts_");
-							$(parts_).find("input").unbind().click(function() {
-								var type = $(this).attr("_type");
-								var id = $(this).attr("value");
-								if (type == "show") {
-									if ($(this).is(':checked')) {
-										checkoutParts.push(id);
+						function update_part(id, name, textArea) {
+							//保存修改后的部件
+							$.ajax({
+								type : "POST",
+								url : "update_part",
+								async : false,
+								cache : false,
+								data : {
+									_id : id,
+									name : name,
+									textArea : textArea
+								},
+								contentType : "application/x-www-form-urlencoded",
+								success : function(data) {
+									getListOfParts(bujianId);
+									layer.msg("保存成功~！", {
+										icon : 1
+									})
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
+								}
+							});
+						}
+						function delete_part(id, name, textArea) {
+							//保存修改后的部件
+							$.ajax({
+								type : "POST",
+								url : "delete_part",
+								async : false,
+								cache : false,
+								data : {
+									_id : id,
+								},
+								contentType : "application/x-www-form-urlencoded",
+								success : function(data) {
+									//更新列表
+									getListOfParts(bujianId);
+									$('.new-model h4').show()
+									$('.new-model-box').hide();
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
+								}
+							});
+						}
+		
+		
+						function gethtml(html, cur, len) {
+							var h = "";
+							var be = (cur - 1) * len;
+							var end = cur * len;
+							for (var i = 0; i < html.length; i++) {
+								if (i >= be && i < end) {
+									h += html[i];
+								}
+							}
+							return h;
+						}
+						function _getHtml(item) {
+							return "<tr id=" + item.id + " modeId=" + item.modeId + "><th scope='row'>" + item.part_name + "</th><td><label class='fancy-checkbox'>" +
+								"<input type='checkbox'><span></span></label></td></tr>";
+						}
+					}
+		
+		
+		
+		
+					//选中的
+					var checkoutParts = [];
+					var removeOrshowParts = [];
+					var yem_check = [];
+					var yem_outline_check = [];
+		
+					getParts = function(_datas, scene, id__, outlinePass) {
+						var parts_ = document.getElementById("parts_");
+						var fenye = document.getElementById("fenye");
+		
+						//获取模型的原件
+						var datas = $.extend([], _datas.children);
+						var id_ = id__;
+						var html = [];
+						if (datas.length > 0) {
+							datas.map(function(data) {
+								html.push(getHtml(data));
+							});
+						} else {
+							$(parts_).html("<font>无数据</font>");
+						}
+						var len = html.length;
+						if (len > 0) {
+							//分页
+							var fenLen = 10;
+							layui.use([ 'laypage', 'layer' ], function() {
+								var laypage = layui.laypage,
+									layer = layui.layer;
+								//总页数低于页码总数
+								laypage.render({
+									elem : $("#fenye"),
+									count : len, //数据总数,
+									limit : fenLen,
+									groups : 2,
+									theme : "#01aaff",
+									jump : function(obj, first) {
+										//首次不执行
+										if (!first) {
+											$(parts_).html(gethtml(html, obj.curr, fenLen));
+										} else {
+											$(parts_).html(gethtml(html, 1, fenLen));
+											$(fenye).fadeIn(100);
+										}
+										$(parts_).find("input").each(function(index, item) {
+											if ($(item).attr("_type") == "show") {
+												if (checkoutParts.indexOf($(item).val()) >= 0) {
+													$(item).prop("checked", true);
+												} else
+													$(item).prop("checked", false);
+											} else {
+												if (removeOrshowParts.indexOf($(item).val()) >= 0) {
+													$(item).prop("checked", true);
+												} else
+													$(item).prop("checked", false);
+											}
+										});
+										if (yem_outline_check.indexOf(obj.curr) >= 0) {
+											$("#checkedAll").prop("checked", true);
+										} else {
+											$("#checkedAll").prop("checked", false);
+										}
+										if (yem_check.indexOf(obj.curr) >= 0) {
+											$("#uncheckAll").prop("checked", true);
+										} else {
+											$("#uncheckAll").prop("checked", false);
+										}
+										addEventerlister(obj.curr);
+									}
+								});
+							})
+		
+							//注册监控事件
+							function addEventerlister(p) {
+								var pageNub = p;
+								var parts_ = document.getElementById("parts_");
+								$(parts_).find("input").unbind().click(function() {
+									var type = $(this).attr("_type");
+									var id = $(this).attr("value");
+									if (type == "show") {
+										if ($(this).is(':checked')) {
+											checkoutParts.push(id);
+										} else {
+											var index = checkoutParts.indexOf(id);
+											if (index >= 0) {
+												checkoutParts.splice(index, 1);
+											}
+										}
+										outlinePass.selectedObjects = _getParts(checkoutParts);
 									} else {
-										var index = checkoutParts.indexOf(id);
+										if ($(this).is(':checked')) {
+											_datas.remove(_getParts([ id ])[0]);
+											removeOrshowParts.push(id)
+										} else {
+											var index = removeOrshowParts.indexOf(id);
+											if (index >= 0) {
+												removeOrshowParts.splice(index, 1);
+											}
+											_datas.add(_getParts([ id ])[0]);
+										}
+									}
+								});
+		
+		
+								$("#checkedAll").unbind().click(function() {
+									//全选
+									var input = $("#parts_").find("input[_type=show]");
+									if ($(this).is(':checked')) {
+										$("[_type=show]").prop("checked", true);
+										input.each(function(index, item) {
+											checkoutParts.push($(item).val());
+										});
+										yem_outline_check.push(pageNub);
+									} else {
+										$("[_type=show]").prop("checked", false);
+										input.each(function(index, item) {
+											var index = checkoutParts.indexOf($(item).val());
+											if (index >= 0) {
+												checkoutParts.splice(index, 1);
+											}
+										});
+		
+										var index = yem_outline_check.indexOf(pageNub);
 										if (index >= 0) {
-											checkoutParts.splice(index, 1);
+											yem_outline_check.splice(index, 1);
 										}
 									}
 									outlinePass.selectedObjects = _getParts(checkoutParts);
-								} else {
+								});
+								$("#uncheckAll").unbind().click(function() {
+									var input = $("#parts_").find("input[_type=hide]");
+									//全选
 									if ($(this).is(':checked')) {
-										_datas.remove(_getParts([ id ])[0]);
-										removeOrshowParts.push(id)
+										$("[_type=hide]").prop("checked", true);
+										input.each(function(index, item) {
+											_datas.remove(_getParts([ $(item).val() ])[0]);
+											removeOrshowParts.push($(item).val())
+										});
+										yem_check.push(pageNub);
 									} else {
-										var index = removeOrshowParts.indexOf(id);
+										$("[_type=hide]").prop("checked", false);
+										input.each(function(index, item) {
+											var index = removeOrshowParts.indexOf($(item).val());
+											if (index >= 0) {
+												removeOrshowParts.splice(index, 1);
+											}
+											_datas.add(_getParts([ $(item).val() ])[0]);
+										});
+										var index = yem_check.indexOf(pageNub);
 										if (index >= 0) {
-											removeOrshowParts.splice(index, 1);
+											yem_check.splice(index, 1);
 										}
-										_datas.add(_getParts([ id ])[0]);
-									}
-								}
-							});
-		
-		
-							$("#checkedAll").unbind().click(function() {
-								//全选
-								var input = $("#parts_").find("input[_type=show]");
-								if ($(this).is(':checked')) {
-									$("[_type=show]").prop("checked", true);
-									input.each(function(index, item) {
-										checkoutParts.push($(item).val());
-									});
-									yem_outline_check.push(pageNub);
-								} else {
-									$("[_type=show]").prop("checked", false);
-									input.each(function(index, item) {
-										var index = checkoutParts.indexOf($(item).val());
-										if (index >= 0) {
-											checkoutParts.splice(index, 1);
-										}
-									});
-		
-									var index = yem_outline_check.indexOf(pageNub);
-									if (index >= 0) {
-										yem_outline_check.splice(index, 1);
-									}
-								}
-								outlinePass.selectedObjects = _getParts(checkoutParts);
-							});
-							$("#uncheckAll").unbind().click(function() {
-								var input = $("#parts_").find("input[_type=hide]");
-								//全选
-								if ($(this).is(':checked')) {
-									$("[_type=hide]").prop("checked", true);
-									input.each(function(index, item) {
-										_datas.remove(_getParts([ $(item).val() ])[0]);
-										removeOrshowParts.push($(item).val())
-									});
-									yem_check.push(pageNub);
-								} else {
-									$("[_type=hide]").prop("checked", false);
-									input.each(function(index, item) {
-										var index = removeOrshowParts.indexOf($(item).val());
-										if (index >= 0) {
-											removeOrshowParts.splice(index, 1);
-										}
-										_datas.add(_getParts([ $(item).val() ])[0]);
-									});
-									var index = yem_check.indexOf(pageNub);
-									if (index >= 0) {
-										yem_check.splice(index, 1);
-									}
-								}
-							});
-		
-							var _createParts = document.getElementById("_createParts");
-							//创建部件
-							$(_createParts).click(function() {
-								if (checkoutParts.length <= 0) {
-									alert('请先勾选部件！');
-									return false;
-								} else {
-									$("#bj-selected").val(checkoutParts.toString());
-									$('#bjModal').modal('show');
-								}
-							});
-		
-							$("#new_bj_create").click(function() {
-								var bj_name = $.trim($("#bj-name").val());
-								var bj_parts = checkoutParts.toString();
-								var brief = $('#bj-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html();
-								$.ajax({
-									type : "POST",
-									url : "saveModeParts",
-									data : {
-										bj_name : bj_name,
-										bj_parts : bj_parts,
-										brief : brief,
-										id : id_
-									},
-									async : false,
-									cache : false,
-									contentType : "application/x-www-form-urlencoded",
-									success : function(data) {
-										if (data == "1000") {
-											getListOfParts(id_);
-											$('#bjModal').modal('hide');
-										}
-									},
-									error : function(data) {
-										console.log("error:" + data.responseText);
 									}
 								});
-							});
 		
-						}
-		
-						function _getParts(arr) {
-							var modeParts = [];
-							arr.map(function(item) {
-								datas.map(function(data) {
-									if (data.name == item) {
-										modeParts.push(data);
+								var _createParts = document.getElementById("_createParts");
+								//创建部件
+								$(_createParts).click(function() {
+									if (checkoutParts.length <= 0) {
+										layer.msg('请先勾选部件！', {
+											icon : 2
+										})
+										return false;
+									} else {
+										$("#bj-selected").val(checkoutParts.toString());
+										$('#bjModal').modal('show');
 									}
 								});
-							});
-							return modeParts
-						}
-					}
 		
-					function gethtml(html, cur, len) {
-						var h = "";
-						var be = (cur - 1) * len;
-						var end = cur * len;
-						for (var i = 0; i < html.length; i++) {
-							if (i >= be && i < end) {
-								h += html[i];
+								$("#new_bj_create").click(function() {
+									var bj_name = $.trim($("#bj-name").val());
+									var bj_parts = checkoutParts.toString();
+									var brief = UE.getEditor('bj-editer').getContent();
+									//var brief = $('#bj-editer').siblings('.layui-layedit').find('iframe').contents().find('body').html();
+									$.ajax({
+										type : "POST",
+										url : "saveModeParts",
+										data : {
+											bj_name : bj_name,
+											bj_parts : bj_parts,
+											brief : brief,
+											id : id_
+										},
+										async : false,
+										cache : false,
+										contentType : "application/x-www-form-urlencoded",
+										success : function(data) {
+											if (data == "1000") {
+												getListOfParts(id_);
+												$('#bjModal').modal('hide');
+											}
+										},
+										error : function(data) {
+											console.log("error:" + data.responseText);
+										}
+									});
+								});
+		
+							}
+		
+		
+							$("#insertGF").unbind().click(function() {
+								$(".search_contiren").html("<font>将按照搜索关键词搜索标题及内容，不支持多个关键词</font>");
+								$("#search_page").hide();
+								$('#insertModal').modal('show');
+							});
+		
+							var _searchRes = {};
+							//插入规范的搜索
+							$(".ymssbtn").unbind().click(function() {
+								var guanjianci = $.trim($("#guanjianci").val());
+								if (guanjianci) {
+									$.ajax({
+										type : "POST",
+										url : "search_guifanParPlus",
+										data : {
+											_gjz : guanjianci,
+										},
+										async : false,
+										cache : false,
+										contentType : "application/x-www-form-urlencoded",
+										success : function(data) {
+											_searchRes = JSON.parse(data);
+											$("#search_page").show();
+											listOfseach(_searchRes);
+										},
+										error : function(data) {
+											console.log("error:" + data.responseText);
+										}
+									});
+								}
+		
+							});
+		
+							function listOfseach(res) {
+								var _hr = [];
+								res.map(function(item) {
+									_hr.push(my_getHtml(item));
+								});
+								var len = _hr.length;
+								if (len <= 0) {
+									$(".search_contiren").html("<font>无搜索结果</font>");
+								} else {
+									//分页
+									var fenLen = 7;
+									layui.use([ 'laypage', 'layer' ], function() {
+										var laypage = layui.laypage,
+											layer = layui.layer;
+										//总页数低于页码总数
+										laypage.render({
+											elem : "search_page",
+											count : len, //数据总数,
+											limit : fenLen,
+											groups : 2,
+											theme : "#01aaff",
+											jump : function(obj, first) {
+												//首次不执行
+												if (!first) {
+													$(".search_contiren").html(gethtml(_hr, obj.curr, fenLen));
+													_addEvenlister()
+												}
+		
+											}
+										});
+									})
+								}
+								$(".search_contiren").html(gethtml(_hr, 1, fenLen));
+								_addEvenlister();
+							}
+							var _current_id = null;
+							function _addEvenlister() {
+								$(".ssjgitem").unbind().click(function() {
+									$(".ssjgitem").css("border", "none");
+									$(this).css("border", "1px #1b1b1b solid");
+									_current_id = $(this).html();
+								});
+		
+								$(".ssjgitem").unbind().dblclick(function() {
+									$(".ssjgitem").css("border", "none");
+									$(this).css("border", "1px #1b1b1b solid");
+									_current_id = $(this).html();
+									UE.getEditor('bj-update-editer').focus();
+									UE.getEditor('bj-update-editer').execCommand('inserthtml', _current_id);
+									$('#insertModal').modal('hide');
+								});
+		
+		
+								$("#allRes").unbind().click(function() {
+									listOfseach(_searchRes);
+								});
+		
+								$("#allNowRes").unbind().click(function() {
+									type_(this);
+								});
+								$("#allResGo").unbind().click(function() {
+									type_(this);
+								});
+								$("#allReplace").unbind().click(function() {
+									type_(this);
+								});
+								function type_(s) {
+								    $(".ymssjsbor").removeClass("ymssjs");
+								    $(s).addClass("ymssjs");
+									var temp = [];
+									var _type = $(s).text();
+									for (var i = 0; i < _searchRes.length; i++) {
+										if (_searchRes[i].type == _type) {
+											temp.push(_searchRes[i]);
+										}
+									}
+									listOfseach(temp);
+									if (temp.lenth > 0) $("#search_page").show();
+									else $("#search_page").hide();
+								}
+		
+		
+							}
+							function my_getHtml(d) {
+								return '<div _id=' + d.id + ' class="z-row ssjgitem">' +
+									'<div class="z-col">' +
+									'<a href="javascript::">' +
+									'<div class="z-row">' +
+									' <div class="z-col padTB5"><span class="ssjgtitle">' + d.gfName + '  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  类型：' + d.type + '  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先级：' + d.youxianji + '</span></div>' +
+									'</div>' +
+									'<div class="z-row">' +
+									'<div class="z-col padTB5">章节：' + d.nodeName + ' </div>' +
+									' </div>' +
+									'<div class="z-row">' +
+									' <div class="z-col ssjgtxt padTB5"> ' + d.content + '</div>' +
+									' </div> </a> </div>  </div>';
+							}
+		
+							$("#yes_seach").unbind().click(function() {
+								//确认插入规范
+								UE.getEditor('bj-update-editer').focus();
+								UE.getEditor('bj-update-editer').execCommand('inserthtml', _current_id);
+								$('#insertModal').modal('hide');
+							});
+		
+							$("#cancen_d").unbind().click(function() {
+								//取消
+								$('#insertModal').modal('hide');
+							});
+		
+		
+							function _getParts(arr) {
+								var modeParts = [];
+								arr.map(function(item) {
+									datas.map(function(data) {
+										if (data.name == item) {
+											modeParts.push(data);
+										}
+									});
+								});
+								return modeParts
 							}
 						}
-						return h;
-					}
-				}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-				function getHtml(data) {
-					return "<tr> <th scope='row'>" + data.name + "</th>" +
-						"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='show'  /></td>" +
-						"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='hide'  /></td> </tr>";
-				}
-		
-		
-		
-				if (tag && tag != "") {
-					//隐藏
-					$('.add').hide();
-					$('.checkout').show();
-					$.ajax({
-						type : "POST",
-						url : "getModeById",
-						data : {
-							_id : tag
-						},
-						async : false,
-						cache : false,
-						contentType : "application/x-www-form-urlencoded",
-						success : function(data) {
-							var res = JSON.parse(data)[0];
-							showAndEdit(res.name, res.type);
-							getListOfParts(tag);
-							$(".upload-img").css("background", "url(/seckill/uploadFiles/" + res.fenmian + ") no-repeat 0px 0px");
-							layui.use([ 'layedit' ], function() {
-								var layedit = layui.layedit;
-								layedit.build('editor'); //建立编辑器
-								$('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html(res.info);
-							});
-		
-						},
-						error : function(data) {
-							console.log("error:" + data.responseText);
+						function gethtml(html, cur, len) {
+							var h = "";
+							var be = (cur - 1) * len;
+							var end = cur * len;
+							for (var i = 0; i < html.length; i++) {
+								if (i >= be && i < end) {
+									h += html[i];
+								}
+							}
+							return h;
 						}
-					});
+					}
 		
 		
-				}
+					function getHtml(data) {
+						return "<tr> <th scope='row'>" + data.name + "</th>" +
+							"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='show'  /></td>" +
+							"<td><input type='checkbox' name='vehicle' value='" + data.name + "'  _type='hide'  /></td> </tr>";
+					}
+		
+		
+		
+					if (tag && tag != "") {
+						//隐藏
+						$('.add').hide();
+						$('.checkout').show();
+						$.ajax({
+							type : "POST",
+							url : "getModeById",
+							data : {
+								_id : tag
+							},
+							async : false,
+							cache : false,
+							contentType : "application/x-www-form-urlencoded",
+							success : function(data) {
+								var res = JSON.parse(data)[0];
+								showAndEdit(res.name, res.type);
+								getListOfParts(tag);
+								$(".upload-img").css("background", "url(/seckill/uploadFiles/" + res.fenmian + ") no-repeat 0px 0px");
+								/* layui.use([ 'layedit' ], function() {
+									var layedit = layui.layedit;
+									//layedit.build('editor'); //建立编辑器
+									$('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html(res.info);
+								
+								}); */
+								UE.getEditor('editor').setContent(res.info);
+		
+		
+							},
+							error : function(data) {
+								console.log("error:" + data.responseText);
+							}
+						});
+		
+					}
+		
+				});
 			})
 		</script>
 </body>

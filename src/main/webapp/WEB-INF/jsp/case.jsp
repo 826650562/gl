@@ -44,8 +44,9 @@
 	background-position: -289px -96px;
 	font-size: 14px;
 }
+
 .plus-tag-add a {
-    font-size: 14px;
+	font-size: 14px;
 }
 </style>
 </head>
@@ -107,7 +108,7 @@
 									class="form-control">
 									<c:forEach var="stu" items="${_types}">
 										<option value='<c:out value="${stu}"/>'>
-										<c:out value="${stu}" /></option>
+											<c:out value="${stu}" /></option>
 									</c:forEach>
 								</select>
 							</div>
@@ -116,24 +117,20 @@
 								<div class="demo">
 
 									<div class="plus-tag tagbtn clearfix" id="myTags"
-										style="display: none;">
-										<a value="-1" title="Travel" href="javascript:void(0);"> <span>Travel</span>
-											<em></em>
-										</a>
-									</div>
+										style="display: none;"></div>
 
 									<div class="plus-tag-add">
 										<form id="" action="" class="login">
 											<ul class="Form FancyForm clearfix" style="margin-bottom:0;">
-												<li><input id="" name="" type="text"
-													class="form-control" maxlength="20" id=""
-													placeholder="请输入新建标签名..."></li>
+												<li><input name="" type="text" class="form-control"
+													maxlength="20" id="tage_name" placeholder="请输入新建标签名..."></li>
 												<li>
 													<button type="button" class="btn btn-primary">添加临时标签</button>
-													<button type="button"  id="new_casetage" class="btn btn-primary">新增标签</button>
-													<a href="javascript:void(0);" class="plus">收起标签</a>
+													<button type="button" id="new_casetage"
+														class="btn btn-primary">新增标签</button> <a
+													href="javascript:void(0);" class="plus">收起标签</a>
 												</li>
-											  
+
 											</ul>
 										</form>
 									</div>
@@ -142,12 +139,13 @@
 									<div id="mycard-plus">
 										<div class="default-tag tagbtn">
 											<div class="clearfix nowtips">
-											
+
 												<c:forEach var="stu" items="${_tages}">
-												    <a value="-1" title="${stu}" href="javascript:void(0);"
-													    class="selected"> <span>${stu}</span> <em></em> </a>		
+													<a value="-1" title="${stu}" href="javascript:void(0);"
+														class="selected"> <span>${stu}</span> <em></em>
+													</a>
 												</c:forEach>
-												
+
 											</div>
 										</div>
 										<!--mycard-plus end-->
@@ -226,67 +224,98 @@
 	<script src="${basePath}/static/assets/vendor/toastr/toastr.min.js"></script>
 	<script src="${basePath}/static/assets/scripts/jq22.js"></script>
 	<script>
-		layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
-			var layedit = layui.layedit;
-			layedit.build('bj-editor'); //建立编辑器
-		});
+		$(function() {
 	
-		function getTipsStr() {
-			var caseTipsArr = [];
-			$('#myTags').find('a').each(function() {
-				var tipVal = $(this).attr('title');
-				caseTipsArr.push(tipVal);
+			layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
+				var layedit = layui.layedit;
+				layedit.build('bj-editor'); //建立编辑器
 			});
-			var caseTipsStr = caseTipsArr.toString();
-			return caseTipsStr;
-		}
 	
-		function submitCase(caseName, caseType, caseBrief, caseTips) {
-			$.ajax({
-				type : 'post',
-				url : "${basePath}/home/subCase",
-				data : {
-					caseName : caseName,
-					caseType : caseType,
-					caseBrief : caseBrief,
-					caseTips : caseTips,
-				},
-				async : false,
-				cache : false,
-				contentType : "application/x-www-form-urlencoded",
-				success : function(data) {
-					$('#success-modal').modal('show');
-					$('.alert').click(function() {
-						$('#success-modal').modal('hide');
+			function getTipsStr() {
+				var caseTipsArr = [];
+				$('#myTags').find('a').each(function() {
+					var tipVal = $(this).attr('title');
+					caseTipsArr.push(tipVal);
+				});
+				var caseTipsStr = caseTipsArr.toString();
+				return caseTipsStr;
+			}
+	
+			function submitCase(caseName, caseType, caseBrief, caseTips) {
+				$.ajax({
+					type : 'post',
+					url : "${basePath}/home/subCase",
+					data : {
+						caseName : caseName,
+						caseType : caseType,
+						caseBrief : caseBrief,
+						caseTips : caseTips,
+					},
+					async : false,
+					cache : false,
+					contentType : "application/x-www-form-urlencoded",
+					success : function(data) {
+						$('#success-modal').modal('show');
+						$('.alert').click(function() {
+							$('#success-modal').modal('hide');
+						});
+					},
+					error : function(data) {
+						console.log("error:" + data.responseText);
+					}
+				});
+			}
+	
+			$('#submit').click(function() {
+				var caseName = $("#case-name").val();
+				var caseType = $.trim($("#case-type").find("option:selected").text());
+				var caseBrief = $.trim($('#bj-editor').siblings('.layui-layedit').find('iframe').contents().find('body').html());
+				var caseTips = getTipsStr();
+	
+				if (caseName == '') {
+					$('#alert-modal').on('show.bs.modal', function(e) {
+						$('#alert-modal .alert').text('案例名称不能为空');
 					});
-				},
-				error : function(data) {
-					console.log("error:" + data.responseText);
+					$('#alert-modal').modal('show');
+					return false;
+				} else {
+					submitCase(caseName, caseType, caseBrief, caseTips);
 				}
 			});
-		}
 	
-		$('#submit').click(function() {
-			var caseName = $("#case-name").val();
-			var caseType = $.trim($("#case-type").find("option:selected").text());
-			var caseBrief = $.trim($('#bj-editor').siblings('.layui-layedit').find('iframe').contents().find('body').html());
-			var caseTips = getTipsStr();
+			var _value;
+			$("#tage_name").keypress(function() {
+				_value = $.trim($("#tage_name").val());
+			});
 	
-			if (caseName == '') {
-				$('#alert-modal').on('show.bs.modal', function(e) {
-					$('#alert-modal .alert').text('案例名称不能为空');
+			$("#new_casetage").click(function() {
+				var tage_name = _value;
+				if (tage_name.length >0)  
+				$.ajax({
+					type : 'post',
+					url : "${basePath}/home/add_tagename",
+					data : {
+						_tage_name : tage_name,
+					},
+					async : false,
+					cache : false,
+					contentType : "application/x-www-form-urlencoded",
+					success : function(data) {
+						_value = null;
+						var res = JSON.parse(data);
+						$(".nowtips").html("");
+						res.map(function(d) {
+							$(".nowtips").append('<a value="-1" title="'+d.tage+'" href="javascript:void(0);" class="selected"> <span>'+d.tage+'</span> <em></em> </a>');
+						});
+					},
+					error : function(data) {
+						_value = null;
+						console.log("error:" + data.responseText);
+					}
 				});
-				$('#alert-modal').modal('show');
-				return false;
-			} else {
-				submitCase(caseName, caseType, caseBrief, caseTips);
-			}
+			})
+	
 		});
-		
-		$("#new_casetage").click(function(){
-		   
-		});
-		
 	</script>
 </body>
 
