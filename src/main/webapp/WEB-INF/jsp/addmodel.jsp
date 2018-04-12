@@ -12,7 +12,6 @@
 %>
 <!doctype html>
 <html lang="en">
-
 <head>
 <title>3D锅炉</title>
 <meta charset="utf-8">
@@ -409,6 +408,8 @@
 								<div style="display: flex;align-items: center">
 									<span>封面文件：</span>
 									<div class="upload-img">
+									<img src="/seckill/static/assets/img/plus.png" style="width: 150px;  height: 200px; ">
+
 										<form id="upload_fengmian" action="#"
 											enctype="multipart/form-data">
 											<input id="uploadfengmian" type="file" name="file"
@@ -508,19 +509,20 @@
 					});
 		
 					$("#uploadfengmian").change(function(e) {
-						var bujianId = $(".main").attr("mode_id");
+						var bujianId = $(".main").attr("mode_id")||tag;
+						
 						var img = e.target.value;
 						if (img.length >= 0) {
 							$.ajax({
 								type : "POST",
-								url : "${basePath }/home/upload_img?model_id=" + bujianId,
+								url : "${basePath }/home/upload_img?_id=" + bujianId+"&type=mode",
 								data : new FormData($("#upload_fengmian")[0]),
 								async : false,
 								cache : false,
 								contentType : false,
 								processData : false,
 								success : function(data) {
-									$(".upload-img").css("background", "url(/seckill/uploadFiles/" + data + ") no-repeat 0px 0px");
+									$(".upload-img").find("img").attr("src","/seckill/uploadFiles/" + data );
 								},
 								error : function(data) {
 									console.log("error:" + data.responseText);
@@ -537,7 +539,7 @@
 						//var textarea = $('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html();
 						var textarea = UE.getEditor('editor').getContent();
 		
-						var mode_id = $(".main").attr("mode_id");
+						var mode_id = $(".main").attr("mode_id")||tag;
 						if (name.length <= 0) {
 							layer.msg("锅炉名称不能为空！", {
 								icon : 2
@@ -578,7 +580,7 @@
 		
 		
 		
-					$("#submit-mode").click(function() {
+					$("#submit-mode").unbind().click(function() {
 						var _glmc = $.trim($("#_glmc").val());
 						var _glfl = $.trim($("#_select_guoluType").find("option:selected").text());
 						var uploadObj = $("#uploadObj").val();
@@ -1018,7 +1020,7 @@
 		
 								var _createParts = document.getElementById("_createParts");
 								//创建部件
-								$(_createParts).click(function() {
+								$(_createParts).unbind().click(function() {
 									if (checkoutParts.length <= 0) {
 										layer.msg('请先勾选部件！', {
 											icon : 2
@@ -1030,7 +1032,7 @@
 									}
 								});
 		
-								$("#new_bj_create").click(function() {
+								$("#new_bj_create").unbind().click(function() {
 									var bj_name = $.trim($("#bj-name").val());
 									var bj_parts = checkoutParts.toString();
 									var brief = UE.getEditor('bj-editer').getContent();
@@ -1258,16 +1260,9 @@
 								var res = JSON.parse(data)[0];
 								showAndEdit(res.name, res.type);
 								getListOfParts(tag);
-								$(".upload-img").css("background", "url(/seckill/uploadFiles/" + res.fenmian + ") no-repeat 0px 0px");
-								/* layui.use([ 'layedit' ], function() {
-									var layedit = layui.layedit;
-									//layedit.build('editor'); //建立编辑器
-									$('.editor_mode').siblings('.layui-layedit').find('iframe').contents().find('body').html(res.info);
-								
-								}); */
+								if(res.fenmian)
+							    $(".upload-img").find("img").attr("src","/seckill/uploadFiles/" + res.fenmian );
 								UE.getEditor('editor').setContent(res.info);
-		
-		
 							},
 							error : function(data) {
 								console.log("error:" + data.responseText);

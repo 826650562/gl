@@ -155,9 +155,13 @@
 							<div class="form-group">
 								<label for="">封面文件:</label>
 								<div class="demo">
-									<div class="upload-img"
-										style="position:relative;margin-left:0;">
-										<input type="file">
+									<div class="upload-img">
+									<img src="/seckill/static/assets/img/plus.png" style="width: 150px;  height: 200px; ">
+										<form id="upload_fengmian" action="#"
+											enctype="multipart/form-data">
+											<input id="uploadfengmian" type="file" name="file"
+												style="width: 155px; height: 200px; margin-left: 110px;">
+										</form>
 									</div>
 								</div>
 							</div>
@@ -314,6 +318,59 @@
 					}
 				});
 			})
+			
+				$("#uploadfengmian").change(function(e) {
+						var bujianId = $(".main").attr("mode_id");
+						var img = e.target.value;
+						if (img.length >= 0) {
+							$.ajax({
+								type : "POST",
+								url : "${basePath }/home/upload_img?_id=" + bujianId+"&type=case",
+								data : new FormData($("#upload_fengmian")[0]),
+								async : false,
+								cache : false,
+								contentType : false,
+								processData : false,
+								success : function(data) {
+									$(".upload-img").find("img").attr("src","/seckill/uploadFiles/" + data );
+								},
+								error : function(data) {
+									console.log("error:" + data.responseText);
+								}
+							});
+						}
+						$("#upload_fengmian")[0].reset();
+					});
+					
+			
+					if (tag && tag != "") {
+						//隐藏
+						$('.add').hide();
+						$('.checkout').show();
+						$.ajax({
+							type : "POST",
+							url : "getModeById",
+							data : {
+								_id : tag
+							},
+							async : false,
+							cache : false,
+							contentType : "application/x-www-form-urlencoded",
+							success : function(data) {
+								var res = JSON.parse(data)[0];
+								showAndEdit(res.name, res.type);
+								getListOfParts(tag);
+								if(res.fenmian)
+							    $(".upload-img").find("img").attr("src","/seckill/uploadFiles/" + res.fenmian );
+								UE.getEditor('editor').setContent(res.info);
+							},
+							error : function(data) {
+								console.log("error:" + data.responseText);
+							}
+						});
+		
+					}		
+			
 	
 		});
 	</script>

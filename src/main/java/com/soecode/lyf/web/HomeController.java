@@ -22,6 +22,7 @@ import com.soecode.lyf.entity.Mode;
 import com.soecode.lyf.service.ModeSevice;
 
 import net.sf.json.JSONArray;
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
@@ -39,6 +40,7 @@ public class HomeController {
 	private String list(Model model) {
 		String[] types = modeSevice.getTypes();
 		model.addAttribute("_types", types);
+
 		return "home";
 	}
 
@@ -48,8 +50,8 @@ public class HomeController {
 		model.addAttribute("_types", types);
 		return "mode1";
 	}
-	
-	//规范管理
+
+	// 规范管理
 	@RequestMapping(value = "/gfgl", method = RequestMethod.GET)
 	private String gfgl(Model model) {
 		return "gfgl";
@@ -60,30 +62,28 @@ public class HomeController {
 		String tag_id = (String) request.getParameter("tag_id");
 		String[] types = modeSevice.getTypes();
 		model.addAttribute("_types", types);
-		if(!StringUtils.isNullOrEmpty(tag_id)){
+		if (!StringUtils.isNullOrEmpty(tag_id)) {
 			model.addAttribute("is_show_Create", tag_id);
-		} 
-		return "addmodel";	
+		}
+		return "addmodel";
 	}
-	
-	//添加案例中的标记
+
+	// 添加案例中的标记
 	@RequestMapping(value = "/add_tagename", method = RequestMethod.POST)
-	private void add_tagename( HttpServletRequest request,HttpServletResponse response) throws IOException {
+	private void add_tagename(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String tage_name = (String) request.getParameter("_tage_name");
 		try {
-			List res =modeSevice.addTageName(tage_name);
-			JSONArray  json= JSONArray.fromObject(res);
+			List res = modeSevice.addTageName(tage_name);
+			JSONArray json = JSONArray.fromObject(res);
 			response.getWriter().write(json.toString());
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/get_GFinfo", method = RequestMethod.POST)
-	private void get_GFinfo(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	private void get_GFinfo(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		try {
 			List res = modeSevice.getAllGFPars();
@@ -94,9 +94,10 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/get_guifanInfo", method = RequestMethod.POST)
-	private void get_guifanInfo(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	private void get_guifanInfo(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String _id = (String) request.getParameter("_id");
 		try {
@@ -108,50 +109,47 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/add_guifan", method = RequestMethod.POST)
-	private void add_guifan(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	private void add_guifan(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String _pid = (String) request.getParameter("_pid");
 		String _parId = (String) request.getParameter("_parId");
-		
+
 		try {
-		    String resString= modeSevice.add_guifan(_pid,_parId);
+			String resString = modeSevice.add_guifan(_pid, _parId);
 			response.getWriter().write(resString);
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/delete_guifan", method = RequestMethod.POST)
-	private void delete_guifan(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	private void delete_guifan(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String _pid = (String) request.getParameter("_pid");
 		String _parId = (String) request.getParameter("_parId");
-		
+
 		try {
-		    String resString= modeSevice.delete_guifan(_pid,_parId);
+			String resString = modeSevice.delete_guifan(_pid, _parId);
 			response.getWriter().write(resString);
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
-	
-	
-	
+
 	@RequestMapping(value = "/save_info", method = RequestMethod.POST)
-	private void save_info(Model model, HttpServletRequest request,HttpServletResponse response) {
+	private void save_info(Model model, HttpServletRequest request, HttpServletResponse response) {
 		String _gfmc = (String) request.getParameter("_gfmc");
 		String _gfbb = (String) request.getParameter("_gfbb");
 		String _gfjj = (String) request.getParameter("_gfjj");
 		String youxianji = (String) request.getParameter("youxianji");
 		String type = (String) request.getParameter("type");
-		
-		String res=modeSevice.saveGF(_gfmc,_gfbb,_gfjj,youxianji,type);
+
+		String res = modeSevice.saveGF(_gfmc, _gfbb, _gfjj, youxianji, type);
 		try {
 			response.getWriter().write(res);
 		} catch (IOException e) {
@@ -159,13 +157,12 @@ public class HomeController {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/search_guifanPar", method = RequestMethod.POST)
-	private void search_guifanPar(Model model, HttpServletRequest request,HttpServletResponse response) {
+	private void search_guifanPar(Model model, HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		String _gjz = (String) request.getParameter("_gjz");
-		List res=modeSevice.search_guifanPar(_gjz);
+		List res = modeSevice.search_guifanPar(_gjz);
 		try {
 			JSONArray json = JSONArray.fromObject(res);
 			response.getWriter().write(json.toString());
@@ -174,12 +171,12 @@ public class HomeController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RequestMapping(value = "/search_guifanParPlus", method = RequestMethod.POST)
-	private void search_guifanParPlus(Model model, HttpServletRequest request,HttpServletResponse response) {
+	private void search_guifanParPlus(Model model, HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		String _gjz = (String) request.getParameter("_gjz");
-		List res=modeSevice.search_guifanParPlus(_gjz);
+		List res = modeSevice.search_guifanParPlus(_gjz);
 		try {
 			JSONArray json = JSONArray.fromObject(res);
 			response.getWriter().write(json.toString());
@@ -188,18 +185,23 @@ public class HomeController {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@RequestMapping(value = "/loadMode")
 	private String loadMode(Model model) {
 		return "mode";
 	}
-	
+
 	@RequestMapping(value = "/loadCase")
 	private void loadCase(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
+		String _id = (String) request.getParameter("_id");
+		List _cases=null;
 		try {
-			List _cases= modeSevice.getCases();
+			if( null !=_id ){
+			 _cases= modeSevice.getCases(_id);
+			}else{
+			 _cases= modeSevice.getCases("");
+			}
 			JSONArray json = JSONArray.fromObject(_cases);
 			response.getWriter().write(json.toString());
 		} catch (Exception e) {
@@ -207,16 +209,15 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
-	
-	//gsm 跳转编辑案例界面
+
+	// gsm 跳转编辑案例界面
 	@RequestMapping(value = "/case", method = RequestMethod.GET)
 	private String addcase(Model model) {
 		String[] types = modeSevice.getTypes();
 		String[] tages = modeSevice.getTages();
 		model.addAttribute("_types", types);
 		model.addAttribute("_tages", tages);
+
 		return "case";
 	}
 
@@ -266,7 +267,7 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	/**
 	 * @param model
 	 * @return 删除锅炉
@@ -284,8 +285,19 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
+
+	@RequestMapping(value = "/deleteCase", method = RequestMethod.POST)
+	private void deleteCase(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		String _id = (String) request.getParameter("_id");
+		try {
+			modeSevice.deleteMode(_id);
+			response.getWriter().write("1000");
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getWriter().write("1001");
+		}
+	}
 
 	@RequestMapping(value = "/saveModeParts", method = RequestMethod.POST)
 	private void saveModeParts(HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -316,8 +328,7 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/getguifanByid", method = RequestMethod.POST)
 	private void getguifanByid(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -331,28 +342,28 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/add_guifan_update", method = RequestMethod.POST)
 	private void add_guifan(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String id = (String) request.getParameter("_id");
 		String title = (String) request.getParameter("_title");
 		String area = (String) request.getParameter("_area");
-	 
+
 		try {
-			String res = modeSevice.add_guifan(id,title,area);
+			String res = modeSevice.add_guifan(id, title, area);
 			response.getWriter().write(res);
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/delete_guifan_All", method = RequestMethod.POST)
 	private void delete_guifan_All(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String parid = (String) request.getParameter("parid");
-	 
+
 		try {
 			String res = modeSevice.delete_guifanAll(parid);
 			response.getWriter().write(res);
@@ -361,11 +372,7 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
-	
- 
-	
+
 	@RequestMapping(value = "/getInfoOfPart", method = RequestMethod.POST)
 	private void getInfoOfPart(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -379,7 +386,7 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/getModeById", method = RequestMethod.POST)
 	private void getModeById(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -393,8 +400,7 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/update_part", method = RequestMethod.POST)
 	private void update_part(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -402,14 +408,14 @@ public class HomeController {
 		String name = (String) request.getParameter("name");
 		String textArea = (String) request.getParameter("textArea");
 		try {
-			modeSevice.update_part(id,name,textArea);
+			modeSevice.update_part(id, name, textArea);
 			response.getWriter().write("1000");
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
-	
+
 	@RequestMapping(value = "/delete_part", method = RequestMethod.POST)
 	private void delete_part(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -422,7 +428,6 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
 
 	@RequestMapping(value = "/saveModeInfo", method = RequestMethod.POST)
 	public void upload(HttpSession session, HttpServletResponse response, HttpServletRequest request)
@@ -486,25 +491,30 @@ public class HomeController {
 		}
 		response.getWriter().write(resMsg);
 	}
-	
-	
+
 	@RequestMapping(value = "/upload_img", method = RequestMethod.POST)
 	public void upload_img(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		String resMsg = "";
-		String model_id = (String) request.getParameter("model_id");
+		String _id = (String) request.getParameter("_id");
+		String _type = (String) request.getParameter("type");
 		try {
 			long startTime = System.currentTimeMillis();
 			String leftPath = session.getServletContext().getRealPath("/uploadFiles");
-			String allName =modeSevice.MD5(new Date().getTime() + "-" + file.getOriginalFilename()) ;
+			String allName = modeSevice.MD5(new Date().getTime() + "-" + file.getOriginalFilename());
 			String path = leftPath + "\\" + allName;
 			File newFile = new File(path);
 			if (!newFile.getParentFile().exists()) {
 				newFile.getParentFile().mkdirs();
 			}
 			file.transferTo(newFile);
-			modeSevice.upload_img(model_id,allName);
+			if (_type.equals("case")) {
+				session.setAttribute("case_fengmian", allName);
+			} else {
+				modeSevice.upload_img(_id, allName);
+			}
+
 			response.getWriter().write(allName);
 
 		} catch (IllegalStateException e) {
@@ -513,8 +523,7 @@ public class HomeController {
 		}
 		response.getWriter().write(resMsg);
 	}
-	
-	
+
 	@RequestMapping(value = "/allsave_mode", method = RequestMethod.POST)
 	private void allsave_mode(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -523,36 +532,42 @@ public class HomeController {
 		String _textarea = (String) request.getParameter("_textarea");
 		String id = (String) request.getParameter("mode_id");
 		try {
-			modeSevice.allsave_mode(id,_glmc,_glfl,_textarea);
+			modeSevice.allsave_mode(id, _glmc, _glfl, _textarea);
 			response.getWriter().write("1000");
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
- 
-	
-	//gsm 上传案例数据到数据库
+
+	// gsm 上传案例数据到数据库
 	@RequestMapping(value = "/subCase", method = RequestMethod.POST)
-	private void subCase(HttpServletResponse response, HttpServletRequest request) throws IOException {
+	private void subCase(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		try {
 			String caseName = (String) request.getParameter("caseName");
 			String caseType = (String) request.getParameter("caseType");
 			String caseBrief = (String) request.getParameter("caseBrief");
 			String caseTips = (String) request.getParameter("caseTips");
-			
-			modeSevice.subCase(caseName,caseType,caseBrief, caseTips);
-			//JSONArray json = JSONArray.fromObject(res);
+
+			String img = (String) session.getAttribute("case_fengmian");
+			if ("".equals(img)) {
+				modeSevice.subCase(caseName, caseType, caseBrief, caseTips, "");
+			} else {
+				modeSevice.subCase(caseName, caseType, caseBrief, caseTips, img);
+				session.setAttribute("case_fengmian", "");
+			}
+
+			// JSONArray json = JSONArray.fromObject(res);
 			response.getWriter().write("1000");
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
-	//gsm 加载首页数据
+
+	// gsm 加载首页数据
 	@RequestMapping(value = "/loadModel", method = RequestMethod.POST)
 	private void loadModel(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -565,7 +580,5 @@ public class HomeController {
 			response.getWriter().write("1001");
 		}
 	}
-	
-	
-	
+
 }

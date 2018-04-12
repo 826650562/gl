@@ -104,7 +104,7 @@ $(function() {
 								} else {
 									$("#listOfGuolu").html(gethtml(htmls, 1, fenLen));
 								}
-								//addEvenlister();
+							    addEvenlister_mode();
 
 							}
 						});
@@ -118,7 +118,7 @@ $(function() {
 			}
 		});
 
-		function addEvenlister() {
+		function addEvenlister_mode() {
 			$(".mode_watch").unbind().click(function() {
 				//查看
 				var id = $(this).parents("tr").attr("mode_id");
@@ -219,7 +219,7 @@ $(function() {
 								} else {
 									$("#case_contrent").html(gethtml(htmls, 1, fenLen));
 								}
-								addEvenlister();
+								addEvenlister_case();
 
 							}
 						});
@@ -233,24 +233,24 @@ $(function() {
 			}
 		});
 
-		function addEvenlister() {
-			$(".mode_watch").unbind().click(function() {
+		function addEvenlister_case() {
+			$(".case_watch").unbind().click(function() {
 				//查看
-				var id = $(this).parents("tr").attr("mode_id");
-				window.location.href = "../page/detail?tag_id=" + id;
+				var id = $(this).parents("tr").attr("case_id");
+				window.location.href = "../page/casedetail?tag_id=" + id;
 			});
-			$(".mode_update").unbind().click(function() {
+			$(".case_update").unbind().click(function() {
 				//修改
-				var id = $(this).parents("tr").attr("mode_id");
+				var id = $(this).parents("tr").attr("case_id");
 				window.location.href = "addmodel?tag_id=" + id;
 			});
-			$(".mode_delete").unbind().click(function() {
+			$(".case_delete").unbind().click(function() {
 				//删除
-				var id = $(this).parents("tr").attr("mode_id");
+				var id = $(this).parents("tr").attr("case_id");
 				if (confirm("确认删除吗")) {
 					$.ajax({
 						type : "POST",
-						url : "deleteMode",
+						url : "deleteCase",
 						data : {
 							_id : id,
 						},
@@ -258,7 +258,7 @@ $(function() {
 						cache : false,
 						contentType : "application/x-www-form-urlencoded",
 						success : function(data) {
-							loadMode();
+							loadCase()
 						},
 						error : function(data) {
 							console.log("error:" + data.responseText);
@@ -272,17 +272,17 @@ $(function() {
 		}
 
 		function getHtmlModel(data, index) {
-				return  '<tr> <th scope="row">'+data.id+'</th>'+
+				return  '<tr case_id='+data.id+'> <th scope="row">'+data.id+'</th>'+
 				'<td>'+data.name+'</td> <td><img'+
-					'src="${basePath}/static/assets/img/fengmian.png" alt=""'+
+					' src="/seckill/uploadFiles/'+data.img+'" alt=""'+
 					'style="width: 40px;height:40px;"></td>'+
 				'<td>'+data.type+'</td>'+
 				'<td>'+data.tips+'</td>'+
 				'<td>'+data.date+'</td>'+
 				'<td>'+
-					'<button type="button" class="btn btn-light watch">查看</button>'+
-					'<button type="button" class="btn btn-primary">修改</button>'+
-					'<button type="button" class="btn btn-danger">删除</button>'+
+					'<button type="button" class="btn btn-light case_watch">查看</button>'+
+					'<button type="button" class="btn btn-primary case_update">修改</button>'+
+					'<button type="button" class="btn btn-danger case_delete">删除</button>'+
 				'</td>'+
 			'</tr>';
 		}

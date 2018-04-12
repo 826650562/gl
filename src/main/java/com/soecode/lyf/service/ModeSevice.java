@@ -40,11 +40,13 @@ public interface ModeSevice {
 
 	void delete_part(String id);
 
-	void upload_img(String model_id, String imgPath);
+	void upload_img(String model_id, String imgPath); 
+	
+	void upload_img2(String case_id, String imgPath);
 
 	void allsave_mode(String id, String _glmc, String _glfl, String _textarea);
 
-	void subCase(String caseName, String caseType, String caseBrief, String caseTips);
+	void subCase(String caseName, String caseType, String caseBrief, String caseTips, String string);
 
 	List loadModel();
 
@@ -78,6 +80,5 @@ public interface ModeSevice {
 
 	List addTageName(String tage_name);
 
-	List getCases();
-
+   List getCases(String id);
 }

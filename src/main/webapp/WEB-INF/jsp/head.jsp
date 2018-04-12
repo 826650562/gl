@@ -17,8 +17,10 @@
 								<ul>
 									<li><a href="index.html">首页</a></li>
 									<li><a href="shop.html">模型展示</a></li>
+									<li><a target="_blank" href="${basePath}/page/search_fl">法规搜索</a></li>
 									<li><a href="#">案例集锦</a></li>
 									<li><a href="shop.html">计算工具</a></li>
+									
 									<div class="shopping-cart ml-20 display-inline p-0 ptb-15">
 										<div>
 											<i class="fa fa-search fa-fw"></i>&nbsp;搜索

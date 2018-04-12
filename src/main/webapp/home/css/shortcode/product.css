@@ -22,7 +22,9 @@
   position: relative;
 }
 .product-img  {
-  position:relative;
+    position: relative;
+    max-height: 338px;
+    max-width: 263px;
 }
 .product-img img {
   width: 100%;

@@ -58,11 +58,15 @@
           <div class="z-row">
              <div class="z-col"> </div>
              <div class="ydynr">
-                <span>制作人：</span>
+                <span>系统开发人员：</span>
                 <span>何泾渭</span>
+                  <span>徐洪涛</span>
+                     <span>黄锐钦</span>
                 <span>丁红</span>
-                <span>黄锐钦</span>
-                <span>徐洪涛</span>
+                <span>韦中悬</span>
+                <span>马朝晖</span>
+                <span>唐启文</span>
+                 <span>冯晓蕾</span>
                 <span>张拴羊</span>
                 <span>张腾腾</span>
              </div>
@@ -72,7 +76,7 @@
     </div>
     <div class="z-row">
        <div class="z-col"> </div>
-       <div><a href="index" class="jrwzbtn"><i class="fa fa-sign-in fa-fw"></i>&nbsp;进入网站</a></div>
+       <div><a href="index" class="jrwzbtn"><i class="fa fa-sign-in fa-fw"></i>&nbsp;进入系统</a></div>
        <div class="z-col"> </div>
     </div>
 </div>

@@ -23,13 +23,31 @@
 <!-- Responsive css -->
 <link rel="stylesheet" href="${basePath}/home/css/responsive.css">
 <!-- User style -->
+<link rel="stylesheet" href="${basePath}/static/layui/css/layui.css">
 <link rel="stylesheet" href="${basePath}/home/css/custom.css">
-
+<script src="${basePath}/static/layui/layui.js"></script>
 
 <link href="${basePath}/home/css/z-layout.css" rel="stylesheet">
 <link href="${basePath}/home/css/style.css" rel="stylesheet">
 <!-- Modernizr JS -->
 <script src="${basePath}/home/js/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+.case_content {
+	width: 1000px;
+	margin: auto;
+	height: 800px;
+	padding: 10px 5px;
+}
+
+.allb_title {
+	font-size: 20px;
+	float: left
+}
+
+.blog-info {
+	padding: 20px 25px 30px 0px;
+}
+</style>
 </head>
 
 
@@ -96,46 +114,13 @@
 	</header>
 	<!-- header end -->
 
-	<div class="service-area pt-30">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-sm-12 text-center gljjtitle"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 col-sm-12">
-					<div class="z-row">
-						<div class="z-col"></div>
-						<div class="caselabelbox"></div>
-						<div class="z-col"></div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 col-sm-12">
-					<div class="z-row">
-						<div class="z-col"></div>
-						<div class="casexxbq sslb">所属类别：</div>
-						<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-						<div class="casexxbq case_fbsj">发布时间：2018-02-12 12:09</div>
-						<div class="z-col bianji"></div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="row case_content">
+		<div class="allb_title">案例列表</div>
+		<div class="row case_lists"></div>
+		<div id="page2"></div>
 	</div>
 
-
-	<!-- breadcrumb start -->
-	<div class="service-area pb-30">
-		<div class="container">
-			<div class="row mar0">
-				<div class="col-md-12 col-sm-12 casenrcont"></div>
-			</div>
-		</div>
-	</div>
-	<!-- breadcrumb end -->
-
-   <jsp:include page="./footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="./footer.jsp" flush="true"></jsp:include>
 
 	<!-- Modal -->
 	<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
@@ -172,25 +157,46 @@
 
 <script>
 	$(function() {
-
-		var tag_id = "${tag_id}";
-		if (tag_id) {
-			getCaseInfoByid();
-		}
-
+		getCaseInfoByid();
 		function getCaseInfoByid() {
 			$.ajax({
 				type : "POST",
 				url : "../home/loadCase",
 				async : false,
 				cache : false,
-				data : {
-					_id : tag_id
-				},
-				contentType : "application/x-www-form-urlencoded",
 				success : function(data) {
-					var res = JSON.parse(data)[0];
-					fullHmtl(res);
+					var res = JSON.parse(data);
+					var count = res.length;
+					var fenLen = 4
+					var htmls = [];
+					res.reverse();
+					res.map(function(item, index) {
+						htmls.push(getHtmlModel(item, index));
+					});
+					if (htmls.length <= 0) {
+						$(".case_lists").html("暂无数据！");
+					} else {
+						layui.use([ 'layedit', 'table', 'form', 'laypage' ], function() {
+							var laypage = layui.laypage;
+							laypage.render({
+								elem : 'page2',
+								count : count,
+								limit : fenLen,
+								layout : [ 'count', 'prev', 'page', 'next', 'skip' ],
+								jump : function(obj, first) {
+									//首次不执行
+									if (!first) {
+										$(".case_lists").html(gethtml(htmls, obj.curr, fenLen));
+									} else {
+										$(".case_lists").html(gethtml(htmls, 1, fenLen));
+									}
+								//addEvenlister_case();
+								}
+							});
+
+						});
+					}
+
 				},
 				error : function(data) {
 					console.log("error:" + data.responseText);
@@ -198,19 +204,29 @@
 			});
 		}
 
-		function fullHmtl(res) {
-			//console.info(res);
-			$(".gljjtitle").text(res.name);
-			tips = res.tips.split(",");
-			var html = "所属类别：";
-			tips.map(function(item) {
-				html += "<span>" + item + "</span>";
-			});
-			//$(".bianji").html(html);
-			$(".sslb").text(res.type);
-			$(".case_fbsj").text("发布时间：" + res.date);
-			$(".casenrcont").html(res.brief);
+		function gethtml(html, cur, len) {
+			var h = "";
+			var be = (cur - 1) * len;
+			var end = cur * len;
+			for (var i = 0; i < html.length; i++) {
+				if (i >= be && i < end) {
+					h += html[i];
+				}
+			}
+			return h;
 		}
+
+		function getHtmlModel(item) {
+			return '	<div class="col-lg-12">' +
+				'<div class="blog-wrapper mb-30">' +
+				'<div class="blog-info">' +
+				'<h3> <a href="../page/casedetail?tag_id=' + item.id + '">' + item.name + '</a> </h3>' +
+				'<div class="blog-meta">' +
+				'<span class="f-left">' + item.date + '</span> <span class="f-right"><a' +
+				'href="../page/casedetail?tag_id=' + item.id + '">查看详情</a></span> </div>' +
+				'</div> </div> </div>';
+		}
+
 
 	})
 </script>

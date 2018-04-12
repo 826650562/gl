@@ -139,6 +139,10 @@ public class ModeSeviceImpl implements ModeSevice {
 		// TODO Auto-generated method stub
 		_jd.execute("UPDATE  mode  SET fenmian='" + imgPath + "' where id=" + model_id);
 	}
+	public void upload_img2(String case_id, String imgPath) {
+		// TODO Auto-generated method stub
+		_jd.execute("UPDATE  case  SET fenmian='" + imgPath + "' where id=" + case_id);
+	}
 
 	public void allsave_mode(String id, String _glmc, String _glfl, String _textarea) {
 		// TODO Auto-generated method stub
@@ -147,13 +151,13 @@ public class ModeSeviceImpl implements ModeSevice {
 	}
 
 	// gsm 插入数据库case表
-	public void subCase(String caseName, String caseType, String caseBrief, String caseTips) {
+	public void subCase(String caseName, String caseType, String caseBrief, String caseTips,String img) {
 		// TODO Auto-generated method stub
 		//
 		Date day=new Date();    
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		String sql = "insert into `case` (name, type, tips, brief,date) values" + "('" + caseName + "','" + caseType + "','"
-				+ caseTips + "','" + caseBrief +"','" + df.format(day) + "'); ";
+		String sql = "insert into `case` (name, type, tips, brief,date,img) values" + "('" + caseName + "','" + caseType + "','"
+				+ caseTips + "','" + caseBrief +"','" + df.format(day) +"','" + img+ "'); ";
 		_jd.execute(sql);
 
 	}
@@ -195,9 +199,9 @@ public class ModeSeviceImpl implements ModeSevice {
 	public void deleteMode(String _id) {
 		// TODO Auto-generated method stub
 		if (StringUtils.isNotEmpty(_id)) {
-			_jd.execute("DELETE FROM mode  where id=" + _id);
+			_jd.execute("DELETE FROM `case`  where id=" + _id);
 		} else {
-			_jd.execute("DELETE FROM mode");
+			_jd.execute("DELETE FROM `case`");
 		}
 	}
 
@@ -351,7 +355,7 @@ public class ModeSeviceImpl implements ModeSevice {
 		// TODO Auto-generated method stub
 		List res = null;
 		try {
-			res = _jd.queryForList("select * from guifan_par t join guifan q on  t.id=q.parId WHERE   t.id in( SELECT parId from   guifan WHERE nodeName like '%"+_gjz+"%' OR content like '%"+_gjz+"%' ) order by youxianji ");
+			res = _jd.queryForList(" select * from guifan_par t join guifan q on  t.id=q.parId where gfName like '%"+_gjz+"%' or nodeName like '%"+_gjz+"%'");
 		} catch (Exception e) {
 			return null;
 		}
@@ -374,9 +378,14 @@ public class ModeSeviceImpl implements ModeSevice {
 		return _res;
 	}
 
-	public List getCases() {
+	public List getCases(String id) {
 		// TODO Auto-generated method stub
-		String sql = "select * FROM `case`";
+	    String sql="";	
+		if("".equals(id)){
+			sql= "select * FROM `case`";
+		}else{
+			sql = "select * FROM `case` where id="+id;
+		}
 		List res = _jd.queryForList(sql);
 		return res;
 	}

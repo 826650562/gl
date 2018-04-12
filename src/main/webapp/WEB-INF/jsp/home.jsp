@@ -251,48 +251,6 @@
 								</div>
 								<div class="modal-body">
 									<ul id="del-list" class="list-group">
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Cras justo odio</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Dapibus ac facilisis in</li>
-										<li class="list-group-item"><label class="fancy-checkbox"><input
-												type="checkbox"><span></span></label>Morbi leo risus</li>
 									</ul>
 								</div>
 								<div class="modal-footer">
